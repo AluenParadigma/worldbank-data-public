@@ -1,4 +1,3 @@
-```python
 import csv
 import hashlib
 import json
@@ -619,4 +618,3 @@ if __name__ == "__main__":
             f"ERROR: {exc}"
         )
         sys.exit(1)
-```
