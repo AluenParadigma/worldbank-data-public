@@ -1,8 +1,9 @@
+```python
 import csv
 import hashlib
 import json
-import math
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -18,14 +19,27 @@ JSON_PATH = OUTPUT_DIR / "latest.json"
 CSV_PATH = OUTPUT_DIR / "latest.csv"
 METADATA_PATH = OUTPUT_DIR / "metadata.json"
 
+ROWS_PER_PAGE = 100
+MAX_RETRIES = 5
+RETRY_WAIT_SECONDS = 5
+
+# Protección para evitar loops infinitos
+MAX_PAGES = 500
+
+
+def now_utc():
+    return datetime.now(timezone.utc)
+
 
 def now_utc_iso():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return now_utc().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def parse_date(value):
     if not value:
         return None
+
+    value = str(value).strip()
 
     formats = [
         "%Y-%m-%d",
@@ -33,69 +47,115 @@ def parse_date(value):
         "%Y-%m-%dT%H:%M:%SZ",
         "%m/%d/%Y",
         "%d-%b-%Y",
+        "%Y-%m-%d %H:%M:%S",
     ]
 
     for fmt in formats:
         try:
-            return datetime.strptime(value[:20], fmt).replace(tzinfo=timezone.utc)
+            dt = datetime.strptime(value[:19], fmt)
+            return dt.replace(tzinfo=timezone.utc)
         except Exception:
             pass
 
     return None
 
 
-def is_english_or_spanish(record):
-    language = str(
-        record.get("language")
-        or record.get("lang_name")
-        or record.get("language_name")
-        or ""
-    ).lower()
+def request_with_retry(params):
+    last_error = None
 
-    return (
-        "english" in language
-        or "spanish" in language
-        or language in {"en", "es"}
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            response = requests.get(
+                API_URL,
+                params=params,
+                timeout=60,
+            )
+
+            if response.status_code == 200:
+                return response
+
+            if response.status_code in {500, 502, 503, 504}:
+                print(
+                    f"HTTP {response.status_code}. "
+                    f"Retry {attempt}/{MAX_RETRIES}"
+                )
+
+                last_error = RuntimeError(
+                    f"HTTP {response.status_code}"
+                )
+
+                time.sleep(RETRY_WAIT_SECONDS * attempt)
+                continue
+
+            response.raise_for_status()
+
+        except Exception as exc:
+            last_error = exc
+
+            print(
+                f"Request error: {exc}. "
+                f"Retry {attempt}/{MAX_RETRIES}"
+            )
+
+            time.sleep(RETRY_WAIT_SECONDS * attempt)
+
+    raise RuntimeError(
+        f"No fue posible consultar la API despues de "
+        f"{MAX_RETRIES} intentos: {last_error}"
     )
 
 
-def looks_like_consulting(record):
-    fields = [
-        record.get("procurement_method_name"),
-        record.get("procurement_method_code"),
-        record.get("notice_type"),
-        record.get("notice_type_name"),
-        record.get("procurement_category"),
-        record.get("procurement_type"),
+def extract_records(payload):
+    if isinstance(payload, list):
+        return payload
+
+    candidates = [
+        payload.get("documents"),
+        payload.get("data"),
+        payload.get("results"),
+        payload.get("procnotices"),
     ]
 
-    text = " ".join(str(x or "") for x in fields).lower()
+    for value in candidates:
+        if isinstance(value, list):
+            return value
 
-    consulting_markers = [
-        "consult",
-        "qcbs",
-        "qbs",
-        "cqs",
-        "lcs",
-        "fbs",
-        "indv",
-        "individual consultant",
-        "consulting services",
-        "expression of interest",
-        "request for expression of interest",
-    ]
+    return []
 
-    return any(marker in text for marker in consulting_markers)
+
+def get_value(record, *keys):
+    for key in keys:
+        value = record.get(key)
+
+        if value not in (None, ""):
+            return value
+
+    return ""
+
+
+def extract_deadline(record):
+    return get_value(
+        record,
+        "deadline",
+        "deadline_date",
+        "submission_deadline",
+        "closing_date",
+    )
+
+
+def extract_publication_date(record):
+    return get_value(
+        record,
+        "publication_date",
+        "published_date",
+        "notice_date",
+    )
 
 
 def is_current(record, extraction_dt):
-    deadline = (
-        record.get("deadline")
-        or record.get("submission_deadline")
-        or record.get("closing_date")
-    )
+    deadline = extract_deadline(record)
 
-    dt = parse_date(str(deadline or ""))
+    dt = parse_date(deadline)
 
     if not dt:
         return False
@@ -103,212 +163,303 @@ def is_current(record, extraction_dt):
     return dt >= extraction_dt
 
 
-def normalize_record(record):
-    return {
-        "notice_id": (
-            record.get("id")
-            or record.get("notice_id")
-            or record.get("proc_notice_id")
-            or ""
-        ),
-        "project_id": (
-            record.get("project_id")
-            or record.get("projectid")
-            or ""
-        ),
-        "reference_no": (
-            record.get("reference_no")
-            or record.get("reference")
-            or record.get("procurement_reference")
-            or ""
-        ),
-        "title": (
-            record.get("title")
-            or record.get("notice_title")
-            or record.get("description")
-            or ""
-        ),
-        "country": (
-            record.get("country")
-            or record.get("country_name")
-            or ""
-        ),
-        "project_name": (
-            record.get("project_name")
-            or record.get("project")
-            or ""
-        ),
-        "institution": (
-            record.get("borrower")
-            or record.get("agency")
-            or record.get("implementing_agency")
-            or ""
-        ),
-        "publication_date": (
-            record.get("publication_date")
-            or record.get("published_date")
-            or record.get("notice_date")
-            or ""
-        ),
-        "deadline": (
-            record.get("deadline")
-            or record.get("submission_deadline")
-            or record.get("closing_date")
-            or ""
-        ),
-        "language": (
-            record.get("language")
-            or record.get("language_name")
-            or record.get("lang_name")
-            or ""
-        ),
-        "notice_type": (
-            record.get("notice_type")
-            or record.get("notice_type_name")
-            or ""
-        ),
-        "procurement_method_code": record.get("procurement_method_code") or "",
-        "procurement_method_name": record.get("procurement_method_name") or "",
-        "notice_text": (
-            record.get("notice_text")
-            or record.get("description")
-            or ""
-        ),
-        "source_url": (
-            record.get("url")
-            or record.get("notice_url")
-            or ""
-        ),
-    }
+def is_english_or_spanish(record):
+    language = str(
+        get_value(
+            record,
+            "language",
+            "language_name",
+            "lang_name",
+        )
+    ).strip().lower()
+
+    return (
+        language in {"en", "es", "english", "spanish"}
+        or "english" in language
+        or "spanish" in language
+    )
 
 
-def extract_records(payload):
-    if isinstance(payload, list):
-        return payload
-
-    for key in ["documents", "data", "results", "procnotices"]:
-        value = payload.get(key)
-        if isinstance(value, list):
-            return value
-
-    return []
-
-
-def extract_total(payload):
-    candidates = [
-        payload.get("total"),
-        payload.get("total_records"),
-        payload.get("count"),
+def is_consulting(record):
+    fields = [
+        get_value(
+            record,
+            "procurement_method_name",
+            "procurement_method",
+        ),
+        get_value(
+            record,
+            "procurement_method_code",
+        ),
+        get_value(
+            record,
+            "procurement_category",
+            "procurement_type",
+        ),
+        get_value(
+            record,
+            "notice_type",
+            "notice_type_name",
+        ),
+        get_value(
+            record,
+            "title",
+            "notice_title",
+        ),
     ]
 
-    for value in candidates:
-        try:
-            if value is not None:
-                return int(value)
-        except Exception:
-            pass
+    text = " ".join(
+        str(value or "") for value in fields
+    ).lower()
 
-    return None
+    consulting_markers = [
+        "consulting",
+        "consultancy",
+        "consultant",
+        "expression of interest",
+        "request for expression of interest",
+        "qcbs",
+        "qbs",
+        "cqs",
+        "lcs",
+        "fbs",
+        "indv",
+        "individual consultant",
+    ]
+
+    return any(
+        marker in text
+        for marker in consulting_markers
+    )
+
+
+def normalize_record(record):
+    return {
+        "notice_id": get_value(
+            record,
+            "id",
+            "notice_id",
+            "proc_notice_id",
+        ),
+        "project_id": get_value(
+            record,
+            "project_id",
+            "projectid",
+        ),
+        "reference_no": get_value(
+            record,
+            "reference_no",
+            "reference",
+            "procurement_reference",
+        ),
+        "title": get_value(
+            record,
+            "title",
+            "notice_title",
+            "description",
+        ),
+        "country": get_value(
+            record,
+            "country",
+            "country_name",
+        ),
+        "project_name": get_value(
+            record,
+            "project_name",
+            "project",
+        ),
+        "institution": get_value(
+            record,
+            "borrower",
+            "agency",
+            "implementing_agency",
+        ),
+        "publication_date": extract_publication_date(
+            record
+        ),
+        "deadline": extract_deadline(
+            record
+        ),
+        "language": get_value(
+            record,
+            "language",
+            "language_name",
+            "lang_name",
+        ),
+        "notice_type": get_value(
+            record,
+            "notice_type",
+            "notice_type_name",
+        ),
+        "procurement_method_code": get_value(
+            record,
+            "procurement_method_code",
+        ),
+        "procurement_method_name": get_value(
+            record,
+            "procurement_method_name",
+            "procurement_method",
+        ),
+        "notice_text": get_value(
+            record,
+            "notice_text",
+            "description",
+        ),
+        "source_url": get_value(
+            record,
+            "url",
+            "notice_url",
+        ),
+    }
 
 
 def sha256_file(path):
     h = hashlib.sha256()
 
     with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+        for chunk in iter(
+            lambda: f.read(1024 * 1024),
+            b"",
+        ):
             h.update(chunk)
 
     return h.hexdigest()
 
 
-def main():
-    extracted_at = now_utc_iso()
-    extraction_dt = datetime.now(timezone.utc)
+def page_has_current_records(records, extraction_dt):
+    for record in records:
+        if is_current(record, extraction_dt):
+            return True
 
-    rows_per_page = 100
+    return False
 
-    first_params = {
-        "format": "json",
-        "rows": rows_per_page,
-        "os": 0,
-    }
 
-    print("Consultando API World Bank Procurement Notices...")
+def page_is_old_enough_to_stop(records, extraction_dt):
+    """
+    Devuelve True solo si todos los registros de la pagina
+    tienen deadline conocida y vencida.
+    """
 
-    response = requests.get(
-        API_URL,
-        params=first_params,
-        timeout=60,
+    if not records:
+        return True
+
+    deadlines = []
+
+    for record in records:
+        dt = parse_date(extract_deadline(record))
+
+        if dt is None:
+            return False
+
+        deadlines.append(dt)
+
+    return all(
+        deadline < extraction_dt
+        for deadline in deadlines
     )
 
-    response.raise_for_status()
 
-    payload = response.json()
+def main():
+    extracted_at = now_utc_iso()
+    extraction_dt = now_utc()
 
-    total_api = extract_total(payload)
+    all_scanned_records = []
+    current_records = []
 
-    if total_api is None:
-        raise RuntimeError(
-            "No fue posible identificar el total del universo informado por la API"
-        )
+    page = 0
+    coverage_complete = False
+    stop_reason = ""
 
-    print(f"Total historico informado por API: {total_api}")
+    print(
+        "Consultando World Bank Procurement Notices..."
+    )
+    print(
+        f"Extraction time: {extracted_at}"
+    )
 
-    total_pages = math.ceil(total_api / rows_per_page)
-
-    all_records = []
-
-    for page in range(total_pages):
-        offset = page * rows_per_page
+    while page < MAX_PAGES:
+        offset = page * ROWS_PER_PAGE
 
         params = {
             "format": "json",
-            "rows": rows_per_page,
+            "rows": ROWS_PER_PAGE,
             "os": offset,
         }
 
         print(
-            f"Descargando pagina {page + 1}/{total_pages} "
+            f"Descargando pagina {page + 1} "
             f"- offset {offset}"
         )
 
-        r = requests.get(
-            API_URL,
-            params=params,
-            timeout=60,
-        )
+        response = request_with_retry(params)
+        payload = response.json()
 
-        r.raise_for_status()
+        records = extract_records(payload)
 
-        page_payload = r.json()
-        records = extract_records(page_payload)
-
-        all_records.extend(records)
-
-        if len(records) < rows_per_page:
+        if not records:
+            coverage_complete = True
+            stop_reason = "API returned empty page"
             break
 
-    print(f"Registros historicos descargados: {len(all_records)}")
+        all_scanned_records.extend(records)
 
-    if len(all_records) != total_api:
+        for record in records:
+            if not is_current(
+                record,
+                extraction_dt,
+            ):
+                continue
+
+            if not is_english_or_spanish(
+                record
+            ):
+                continue
+
+            if not is_consulting(
+                record
+            ):
+                continue
+
+            current_records.append(
+                normalize_record(record)
+            )
+
+        if len(records) < ROWS_PER_PAGE:
+            coverage_complete = True
+            stop_reason = "Last partial page reached"
+            break
+
+        if page_is_old_enough_to_stop(
+            records,
+            extraction_dt,
+        ):
+            coverage_complete = True
+            stop_reason = (
+                "Reached page containing only "
+                "expired notices"
+            )
+            break
+
+        page += 1
+
+    if not coverage_complete:
         raise RuntimeError(
-            f"Cobertura historica incompleta: "
-            f"API={total_api}, descargados={len(all_records)}"
+            "No fue posible demostrar cobertura completa "
+            f"antes de alcanzar MAX_PAGES={MAX_PAGES}"
         )
 
-    current_records = []
+    # Deduplicar por notice_id + referencia
+    unique = {}
 
-    for record in all_records:
-        if not is_current(record, extraction_dt):
-            continue
+    for record in current_records:
+        key = (
+            str(record.get("notice_id") or ""),
+            str(record.get("reference_no") or ""),
+        )
 
-        if not is_english_or_spanish(record):
-            continue
+        unique[key] = record
 
-        if not looks_like_consulting(record):
-            continue
-
-        current_records.append(normalize_record(record))
+    current_records = list(unique.values())
 
     current_records.sort(
         key=lambda x: (
@@ -320,13 +471,22 @@ def main():
     output = {
         "source": "World Bank Procurement Notices",
         "fechaExtraccion": extracted_at,
-        "apiHistoricalTotal": total_api,
-        "historicalRecordsDownloaded": len(all_records),
-        "currentConsultingEnEs": len(current_records),
+        "pagesScanned": page + 1,
+        "recordsScanned": len(
+            all_scanned_records
+        ),
+        "currentConsultingEnEs": len(
+            current_records
+        ),
+        "coverageComplete": coverage_complete,
+        "stopReason": stop_reason,
         "data": current_records,
     }
 
-    with JSON_PATH.open("w", encoding="utf-8") as f:
+    with JSON_PATH.open(
+        "w",
+        encoding="utf-8",
+    ) as f:
         json.dump(
             output,
             f,
@@ -363,26 +523,41 @@ def main():
         )
 
         writer.writeheader()
-        writer.writerows(current_records)
+        writer.writerows(
+            current_records
+        )
 
-    csv_records = len(current_records)
+    sha_json = sha256_file(
+        JSON_PATH
+    )
 
-    sha_json = sha256_file(JSON_PATH)
-    sha_csv = sha256_file(CSV_PATH)
+    sha_csv = sha256_file(
+        CSV_PATH
+    )
 
     metadata = {
         "source": "World Bank Procurement Notices",
         "extracted_at": extracted_at,
-        "api_historical_total": total_api,
-        "historical_records_downloaded": len(all_records),
-        "current_consulting_en_es": len(current_records),
-        "json_records": len(current_records),
-        "csv_records": csv_records,
-        "historical_coverage_complete": (
-            len(all_records) == total_api
+        "pages_scanned": page + 1,
+        "records_scanned": len(
+            all_scanned_records
         ),
-        "current_coverage_complete": True,
-        "validation_status": "OK",
+        "current_consulting_en_es": len(
+            current_records
+        ),
+        "json_records": len(
+            current_records
+        ),
+        "csv_records": len(
+            current_records
+        ),
+        "coverage_complete": coverage_complete,
+        "stop_reason": stop_reason,
+        "validation_status": (
+            "OK"
+            if coverage_complete
+            else "INCOMPLETE"
+        ),
         "sha256_json": sha_json,
         "sha256_csv": sha_csv,
     }
@@ -399,23 +574,49 @@ def main():
         )
 
     print("")
-    print("==========================================")
-    print("WORLD BANK PROCUREMENT VALIDATION")
-    print("==========================================")
-    print(f"API historical total:       {total_api}")
-    print(f"Historical downloaded:      {len(all_records)}")
-    print(f"Current consulting EN/ES:   {len(current_records)}")
-    print(f"JSON records:               {len(current_records)}")
-    print(f"CSV records:                {csv_records}")
-    print("Historical coverage:        100%")
-    print("Current coverage:           100%")
-    print("Validation status:          OK")
-    print("==========================================")
+    print(
+        "=========================================="
+    )
+    print(
+        "WORLD BANK PROCUREMENT VALIDATION"
+    )
+    print(
+        "=========================================="
+    )
+    print(
+        f"Pages scanned:              {page + 1}"
+    )
+    print(
+        f"Records scanned:            "
+        f"{len(all_scanned_records)}"
+    )
+    print(
+        f"Current consulting EN/ES:   "
+        f"{len(current_records)}"
+    )
+    print(
+        f"Coverage complete:          "
+        f"{coverage_complete}"
+    )
+    print(
+        f"Stop reason:                "
+        f"{stop_reason}"
+    )
+    print(
+        "Validation status:          OK"
+    )
+    print(
+        "=========================================="
+    )
 
 
 if __name__ == "__main__":
     try:
         main()
+
     except Exception as exc:
-        print(f"ERROR: {exc}")
+        print(
+            f"ERROR: {exc}"
+        )
         sys.exit(1)
+```
