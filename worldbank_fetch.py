@@ -5,7 +5,6 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import quote
 
 import requests
 
@@ -27,23 +26,17 @@ ROWS_PER_PAGE = 100
 
 MAX_RETRIES = 5
 RETRY_WAIT_SECONDS = 3
-
 REQUEST_DELAY_SECONDS = 0.10
 
-# En World Bank los servicios de consultoria se identifican
-# estructuralmente con procurement_group = CS.
 CONSULTING_GROUP = "CS"
-
-# Para oportunidades de consultoria abiertas nos interesan
-# principalmente los Request for Expression of Interest.
 NOTICE_TYPE = "Request for Expression of Interest"
 
-# La API devuelve actualmente ingles como "English".
-# Para español se contemplan las dos variantes observables.
+# Vamos a consultar las variantes posibles del español.
+# Si alguna variante devuelve 0 registros, simplemente no aporta datos.
 LANGUAGE_FILTERS = [
     "English",
-    "Spanish; Castilian",
     "Spanish",
+    "Spanish; Castilian",
 ]
 
 
@@ -81,11 +74,9 @@ def parse_date(value):
                 value[:19],
                 fmt
             )
-
             return dt.replace(
                 tzinfo=timezone.utc
             )
-
         except Exception:
             pass
 
@@ -100,16 +91,12 @@ def request_with_retry(params):
     last_error = None
 
     headers = {
-        "User-Agent": (
-            "Paradigma-WorldBank-Monitor/1.0"
-        ),
+        "User-Agent": "Paradigma-WorldBank-Monitor/2.0",
         "Accept": "application/json",
     }
 
-    for attempt in range(
-        1,
-        MAX_RETRIES + 1
-    ):
+    for attempt in range(1, MAX_RETRIES + 1):
+
         try:
             response = requests.get(
                 API_URL,
@@ -130,8 +117,7 @@ def request_with_retry(params):
             }:
                 print(
                     f"HTTP {response.status_code}. "
-                    f"Reintento {attempt}/"
-                    f"{MAX_RETRIES}"
+                    f"Reintento {attempt}/{MAX_RETRIES}"
                 )
 
                 last_error = RuntimeError(
@@ -139,8 +125,7 @@ def request_with_retry(params):
                 )
 
                 time.sleep(
-                    RETRY_WAIT_SECONDS
-                    * attempt
+                    RETRY_WAIT_SECONDS * attempt
                 )
 
                 continue
@@ -148,32 +133,31 @@ def request_with_retry(params):
             response.raise_for_status()
 
         except Exception as exc:
+
             last_error = exc
 
             print(
                 f"Error HTTP: {exc}. "
-                f"Reintento {attempt}/"
-                f"{MAX_RETRIES}"
+                f"Reintento {attempt}/{MAX_RETRIES}"
             )
 
             time.sleep(
-                RETRY_WAIT_SECONDS
-                * attempt
+                RETRY_WAIT_SECONDS * attempt
             )
 
     raise RuntimeError(
-        "No fue posible consultar la API "
-        "despues de "
+        "No fue posible consultar la API despues de "
         f"{MAX_RETRIES} intentos. "
         f"Ultimo error: {last_error}"
     )
 
 
 # ============================================================
-# ESTRUCTURA DE RESPUESTA
+# RESPUESTA API
 # ============================================================
 
 def extract_records(payload):
+
     records = payload.get(
         "procnotices",
         []
@@ -182,21 +166,18 @@ def extract_records(payload):
     if isinstance(records, list):
         return records
 
-    # Protección para variantes antiguas
     if isinstance(records, dict):
         return [
-            value
-            for value in records.values()
-            if isinstance(
-                value,
-                dict
-            )
+            item
+            for item in records.values()
+            if isinstance(item, dict)
         ]
 
     return []
 
 
 def extract_total(payload):
+
     value = payload.get("total")
 
     if value is None:
@@ -209,8 +190,7 @@ def extract_total(payload):
 
     except Exception:
         raise RuntimeError(
-            f"Total invalido devuelto "
-            f"por API: {value}"
+            f"Total invalido: {value}"
         )
 
 
@@ -219,7 +199,9 @@ def extract_total(payload):
 # ============================================================
 
 def get_value(record, *keys):
+
     for key in keys:
+
         value = record.get(key)
 
         if value not in (
@@ -234,43 +216,32 @@ def get_value(record, *keys):
 
 
 def normalize_language(value):
+
     return str(
         value or ""
     ).strip().lower()
 
 
-def language_is_english_or_spanish(
-    value
+def language_matches(
+    actual,
+    requested
 ):
-    value = normalize_language(value)
 
-    return (
-        value == "english"
-        or value == "spanish"
-        or value == "spanish; castilian"
-        or "spanish" in value
+    actual = normalize_language(
+        actual
     )
 
+    requested = normalize_language(
+        requested
+    )
 
-def is_clearly_inactive_status(
-    record
-):
-    status = str(
-        record.get(
-            "notice_status",
-            ""
-        )
-    ).strip().lower()
+    if requested == "english":
+        return actual == "english"
 
-    inactive = {
-        "cancelled",
-        "canceled",
-        "draft",
-        "deleted",
-        "withdrawn",
-    }
+    if "spanish" in requested:
+        return "spanish" in actual
 
-    return status in inactive
+    return actual == requested
 
 
 # ============================================================
@@ -278,22 +249,19 @@ def is_clearly_inactive_status(
 # ============================================================
 
 def deadline_datetime(record):
-    date_value = get_value(
+
+    value = get_value(
         record,
         "submission_deadline_date",
         "deadline_date",
         "deadline",
     )
 
-    dt = parse_date(
-        date_value
-    )
+    dt = parse_date(value)
 
     if dt is None:
         return None
 
-    # Si la API trae hora separada,
-    # incorporarla.
     time_value = str(
         get_value(
             record,
@@ -302,7 +270,9 @@ def deadline_datetime(record):
     ).strip()
 
     if time_value:
+
         try:
+
             parts = (
                 time_value
                 .replace(".", ":")
@@ -310,6 +280,7 @@ def deadline_datetime(record):
             )
 
             hour = int(parts[0])
+
             minute = (
                 int(parts[1])
                 if len(parts) > 1
@@ -328,10 +299,26 @@ def deadline_datetime(record):
     return dt
 
 
-def is_current_opportunity(
-    record,
-    extraction_dt,
-):
+def is_inactive(record):
+
+    status = str(
+        record.get(
+            "notice_status",
+            ""
+        )
+    ).strip().lower()
+
+    return status in {
+        "cancelled",
+        "canceled",
+        "withdrawn",
+        "deleted",
+        "draft",
+    }
+
+
+def is_current(record, extraction_dt):
+
     deadline = deadline_datetime(
         record
     )
@@ -342,22 +329,21 @@ def is_current_opportunity(
     if deadline < extraction_dt:
         return False
 
-    if is_clearly_inactive_status(
-        record
-    ):
+    if is_inactive(record):
         return False
 
     return True
 
 
 # ============================================================
-# VALIDACION DE FILTROS API
+# VALIDACION DEL FILTRO SERVER-SIDE
 # ============================================================
 
-def validate_server_filter(
+def validate_record_filter(
     record,
-    requested_language,
+    requested_language
 ):
+
     procurement_group = str(
         record.get(
             "procurement_group",
@@ -372,70 +358,68 @@ def validate_server_filter(
         )
     ).strip()
 
-    language = normalize_language(
-        record.get(
-            "notice_lang_name",
-            ""
-        )
+    actual_language = record.get(
+        "notice_lang_name",
+        ""
     )
 
-    if (
-        procurement_group
-        != CONSULTING_GROUP
-    ):
+    if procurement_group != CONSULTING_GROUP:
         return False
 
     if notice_type != NOTICE_TYPE:
         return False
 
-    requested = normalize_language(
+    if not language_matches(
+        actual_language,
         requested_language
-    )
+    ):
+        return False
 
-    if requested == "english":
-        return language == "english"
-
-    if "spanish" in requested:
-        return "spanish" in language
-
-    return False
+    return True
 
 
 # ============================================================
-# DESCARGA COMPLETA DE UN SUBUNIVERSO
+# DESCARGAR SUBUNIVERSO COMPLETO
 # ============================================================
 
-def fetch_filtered_universe(
+def fetch_language_universe(
     language_filter
 ):
+
     print("")
     print(
-        "------------------------------------------"
+        "=========================================="
     )
     print(
-        f"Idioma: {language_filter}"
+        f"LANGUAGE FILTER: {language_filter}"
     )
     print(
-        "------------------------------------------"
+        "=========================================="
     )
 
-    first_params = {
+    base_params = {
         "format": "json",
         "rows": ROWS_PER_PAGE,
-        "os": 0,
-        "procurement_group": (
-            CONSULTING_GROUP
-        ),
-        "notice_type_exact": (
-            NOTICE_TYPE
-        ),
-        "notice_lang_exact": (
-            language_filter
-        ),
+        "procurement_group_exact":
+            CONSULTING_GROUP,
+        "notice_type_exact":
+            NOTICE_TYPE,
+        "notice_lang_name_exact":
+            language_filter,
     }
 
+    # --------------------------------------------------------
+    # Primera pagina
+    # --------------------------------------------------------
+
+    params = dict(
+        base_params
+    )
+
+    params["os"] = 0
+
     response = request_with_retry(
-        first_params
+        params
     )
 
     payload = response.json()
@@ -444,47 +428,70 @@ def fetch_filtered_universe(
         payload
     )
 
-    first_records = extract_records(
+    records = extract_records(
         payload
     )
 
     print(
-        f"Total informado por API: "
-        f"{api_total}"
+        f"API total: {api_total}"
     )
 
+    # Si no existe ninguna oportunidad en esa variante
+    # de idioma, es un resultado valido.
+    if api_total == 0:
+
+        if records:
+            raise RuntimeError(
+                "API informa total=0 "
+                "pero devolvio registros"
+            )
+
+        return {
+            "language": language_filter,
+            "api_total": 0,
+            "records": [],
+            "pages": 1,
+            "coverage_complete": True,
+        }
+
+    if not records:
+        raise RuntimeError(
+            "API informa registros pero "
+            "la primera pagina esta vacia"
+        )
+
     # --------------------------------------------------------
-    # CONTROL CRITICO:
-    # verificar que los filtros realmente hayan sido aplicados
+    # Verificar que la API respete realmente los filtros
     # --------------------------------------------------------
 
-    for record in first_records:
-        if not validate_server_filter(
+    for record in records:
+
+        if not validate_record_filter(
             record,
-            language_filter,
+            language_filter
         ):
+
             print("")
             print(
-                "ERROR: La API no aplico "
-                "correctamente los filtros."
+                "REGISTRO FUERA DEL FILTRO:"
             )
-            print(
-                "Registro conflictivo:"
-            )
+
             print(
                 json.dumps(
                     {
-                        "id": record.get(
-                            "id"
-                        ),
+                        "id":
+                            record.get("id"),
+
                         "procurement_group":
                             record.get(
                                 "procurement_group"
                             ),
+
                         "notice_type":
                             record.get(
                                 "notice_type"
                             ),
+
                         "notice_lang_name":
                             record.get(
                                 "notice_lang_name"
@@ -500,38 +507,32 @@ def fetch_filtered_universe(
                 "no fueron respetados"
             )
 
-    all_records = []
-    all_records.extend(
-        first_records
-    )
-
-    offset = len(
-        first_records
+    all_records = list(
+        records
     )
 
     page = 1
 
-    while offset < api_total:
-        params = {
-            "format": "json",
-            "rows": ROWS_PER_PAGE,
-            "os": offset,
-            "procurement_group": (
-                CONSULTING_GROUP
-            ),
-            "notice_type_exact": (
-                NOTICE_TYPE
-            ),
-            "notice_lang_exact": (
-                language_filter
-            ),
-        }
+    # --------------------------------------------------------
+    # Paginar hasta alcanzar exactamente api_total
+    # --------------------------------------------------------
+
+    while len(all_records) < api_total:
+
+        offset = len(
+            all_records
+        )
+
+        params = dict(
+            base_params
+        )
+
+        params["os"] = offset
 
         print(
             f"Pagina {page + 1} | "
-            f"offset {offset} | "
-            f"{len(all_records)}/"
-            f"{api_total}"
+            f"offset={offset} | "
+            f"{len(all_records)}/{api_total}"
         )
 
         response = request_with_retry(
@@ -540,19 +541,18 @@ def fetch_filtered_universe(
 
         payload = response.json()
 
-        current_total = extract_total(
+        new_total = extract_total(
             payload
         )
 
-        # Si el total cambia durante la descarga,
-        # preferimos abortar antes que declarar
-        # falsamente cobertura 100%.
-        if current_total != api_total:
+        # Si cambia el total durante la extracción,
+        # abortamos antes de declarar falso 100%.
+        if new_total != api_total:
+
             raise RuntimeError(
-                "El total de la API cambio "
-                "durante la extraccion: "
-                f"{api_total} -> "
-                f"{current_total}"
+                "El total informado por la API "
+                "cambio durante la extraccion: "
+                f"{api_total} -> {new_total}"
             )
 
         records = extract_records(
@@ -560,27 +560,25 @@ def fetch_filtered_universe(
         )
 
         if not records:
+
             raise RuntimeError(
-                "La API devolvio una pagina "
-                "vacia antes de alcanzar "
-                "el total esperado"
+                "La API devolvio una pagina vacia "
+                "antes de alcanzar el total"
             )
 
         for record in records:
-            if not validate_server_filter(
+
+            if not validate_record_filter(
                 record,
-                language_filter,
+                language_filter
             ):
+
                 raise RuntimeError(
                     "La API devolvio un registro "
                     "fuera del filtro solicitado"
                 )
 
         all_records.extend(
-            records
-        )
-
-        offset += len(
             records
         )
 
@@ -591,47 +589,65 @@ def fetch_filtered_universe(
         )
 
     # --------------------------------------------------------
-    # DEDUPLICAR DENTRO DEL SUBUNIVERSO
+    # Validar IDs unicos
     # --------------------------------------------------------
 
     by_id = {}
 
     for record in all_records:
+
         notice_id = str(
-            record.get("id", "")
+            record.get(
+                "id",
+                ""
+            )
         ).strip()
 
         if not notice_id:
+
             raise RuntimeError(
-                "Registro sin id en API"
+                "Registro sin ID"
             )
 
-        by_id[notice_id] = record
+        by_id[
+            notice_id
+        ] = record
 
     unique_records = list(
         by_id.values()
     )
 
     if len(unique_records) != api_total:
+
         raise RuntimeError(
-            "El total unico descargado "
-            "no coincide con el total "
-            "de la API: "
+            "El numero de IDs unicos "
+            "no coincide con total API: "
             f"{len(unique_records)} "
             f"!= {api_total}"
         )
 
+    print("")
     print(
-        f"Cobertura {language_filter}: "
+        f"COVERAGE {language_filter}: "
         f"{len(unique_records)}/"
         f"{api_total} - 100%"
     )
 
     return {
-        "language": language_filter,
-        "api_total": api_total,
-        "records": unique_records,
-        "pages": page,
+        "language":
+            language_filter,
+
+        "api_total":
+            api_total,
+
+        "records":
+            unique_records,
+
+        "pages":
+            page,
+
+        "coverage_complete":
+            True,
     }
 
 
@@ -639,19 +655,11 @@ def fetch_filtered_universe(
 # NORMALIZACION
 # ============================================================
 
-def normalize_record(
-    record
-):
+def normalize_record(record):
+
     notice_id = get_value(
         record,
         "id",
-    )
-
-    source_url = (
-        "https://projects.worldbank.org/"
-        "en/projects-operations/"
-        "procurement-detail/"
-        f"{notice_id}"
     )
 
     deadline = deadline_datetime(
@@ -666,117 +674,146 @@ def normalize_record(
         else ""
     )
 
+    source_url = (
+        "https://projects.worldbank.org/"
+        "en/projects-operations/"
+        "procurement-detail/"
+        f"{notice_id}"
+    )
+
     return {
-        "notice_id": notice_id,
 
-        "project_id": get_value(
-            record,
-            "project_id",
-        ),
+        "notice_id":
+            notice_id,
 
-        "reference_no": get_value(
-            record,
-            "bid_reference_no",
-        ),
+        "project_id":
+            get_value(
+                record,
+                "project_id",
+            ),
 
-        "title": get_value(
-            record,
-            "bid_description",
-        ),
+        "reference_no":
+            get_value(
+                record,
+                "bid_reference_no",
+            ),
 
-        "country": get_value(
-            record,
-            "project_ctry_name",
-        ),
+        "title":
+            get_value(
+                record,
+                "bid_description",
+            ),
 
-        "project_name": get_value(
-            record,
-            "project_name",
-        ),
+        "country":
+            get_value(
+                record,
+                "project_ctry_name",
+            ),
 
-        "institution": get_value(
-            record,
-            "contact_organization",
-        ),
+        "project_name":
+            get_value(
+                record,
+                "project_name",
+            ),
 
-        "publication_date": get_value(
-            record,
-            "noticedate",
-        ),
+        "institution":
+            get_value(
+                record,
+                "contact_organization",
+                "agency",
+                "implementing_agency",
+            ),
 
-        "deadline": deadline_iso,
+        "publication_date":
+            get_value(
+                record,
+                "noticedate",
+            ),
 
-        "deadline_date_raw": get_value(
-            record,
-            "submission_deadline_date",
-        ),
+        "deadline":
+            deadline_iso,
 
-        "deadline_time_raw": get_value(
-            record,
-            "submission_deadline_time",
-        ),
+        "deadline_date_raw":
+            get_value(
+                record,
+                "submission_deadline_date",
+            ),
 
-        "language": get_value(
-            record,
-            "notice_lang_name",
-        ),
+        "deadline_time_raw":
+            get_value(
+                record,
+                "submission_deadline_time",
+            ),
 
-        "notice_type": get_value(
-            record,
-            "notice_type",
-        ),
+        "language":
+            get_value(
+                record,
+                "notice_lang_name",
+            ),
 
-        "notice_status": get_value(
-            record,
-            "notice_status",
-        ),
+        "notice_type":
+            get_value(
+                record,
+                "notice_type",
+            ),
 
-        "procurement_group": get_value(
-            record,
-            "procurement_group",
-        ),
+        "notice_status":
+            get_value(
+                record,
+                "notice_status",
+            ),
 
-        "procurement_method_code": (
+        "procurement_group":
+            get_value(
+                record,
+                "procurement_group",
+            ),
+
+        "procurement_method_code":
             get_value(
                 record,
                 "procurement_method_code",
-            )
-        ),
+            ),
 
-        "procurement_method_name": (
+        "procurement_method_name":
             get_value(
                 record,
                 "procurement_method_name",
-            )
-        ),
+            ),
 
-        "notice_text": get_value(
-            record,
-            "notice_text",
-        ),
+        "notice_text":
+            get_value(
+                record,
+                "notice_text",
+            ),
 
-        "contact_name": get_value(
-            record,
-            "contact_name",
-        ),
+        "contact_name":
+            get_value(
+                record,
+                "contact_name",
+            ),
 
-        "contact_email": get_value(
-            record,
-            "contact_email",
-        ),
+        "contact_email":
+            get_value(
+                record,
+                "contact_email",
+            ),
 
-        "source_url": source_url,
+        "source_url":
+            source_url,
     }
 
 
 # ============================================================
-# HASH
+# SHA256
 # ============================================================
 
 def sha256_file(path):
+
     h = hashlib.sha256()
 
     with path.open("rb") as f:
+
         for chunk in iter(
             lambda: f.read(
                 1024 * 1024
@@ -793,45 +830,50 @@ def sha256_file(path):
 # ============================================================
 
 def main():
+
     extraction_dt = utc_now()
     extracted_at = utc_now_iso()
 
     print(
         "=========================================="
     )
+
     print(
         "WORLD BANK PROCUREMENT MONITOR"
     )
+
     print(
         "=========================================="
     )
+
     print(
         f"Extraction time: {extracted_at}"
     )
+
     print(
         f"API: {API_URL}"
     )
+
     print(
         f"Procurement group: "
         f"{CONSULTING_GROUP}"
     )
+
     print(
-        f"Notice type: {NOTICE_TYPE}"
+        f"Notice type: "
+        f"{NOTICE_TYPE}"
     )
 
     # --------------------------------------------------------
-    # DESCARGAR LOS TRES SUBUNIVERSOS
+    # Descargar EN + variantes ES
     # --------------------------------------------------------
 
     subsets = []
 
-    for language_filter in (
-        LANGUAGE_FILTERS
-    ):
-        result = (
-            fetch_filtered_universe(
-                language_filter
-            )
+    for language_filter in LANGUAGE_FILTERS:
+
+        result = fetch_language_universe(
+            language_filter
         )
 
         subsets.append(
@@ -839,48 +881,42 @@ def main():
         )
 
     # --------------------------------------------------------
-    # CONSOLIDAR
+    # Consolidar y deduplicar
     # --------------------------------------------------------
 
-    all_consulting_by_id = {}
+    all_by_id = {}
 
     language_controls = []
 
-    total_api_sum = 0
-
     for subset in subsets:
-        total_api_sum += (
-            subset["api_total"]
-        )
 
         language_controls.append(
             {
                 "language_filter":
-                    subset[
-                        "language"
-                    ],
+                    subset["language"],
+
                 "api_total":
-                    subset[
-                        "api_total"
-                    ],
+                    subset["api_total"],
+
                 "records_downloaded":
                     len(
-                        subset[
-                            "records"
-                        ]
+                        subset["records"]
                     ),
+
                 "pages":
-                    subset[
-                        "pages"
-                    ],
+                    subset["pages"],
+
                 "coverage_complete":
-                    True,
+                    subset[
+                        "coverage_complete"
+                    ],
             }
         )
 
         for record in subset[
             "records"
         ]:
+
             notice_id = str(
                 record.get(
                     "id",
@@ -888,38 +924,26 @@ def main():
                 )
             )
 
-            all_consulting_by_id[
+            all_by_id[
                 notice_id
             ] = record
 
-    full_filtered_universe = list(
-        all_consulting_by_id.values()
-    )
-
-    print("")
-    print(
-        "Universo historico filtrado "
-        "unico:"
-    )
-    print(
-        len(
-            full_filtered_universe
-        )
+    filtered_historical = list(
+        all_by_id.values()
     )
 
     # --------------------------------------------------------
-    # IDENTIFICAR OPORTUNIDADES ACTUALES
+    # Determinar vigentes
     # --------------------------------------------------------
 
     current_raw = []
 
     expired = 0
     no_deadline = 0
-    inactive_status = 0
+    inactive = 0
 
-    for record in (
-        full_filtered_universe
-    ):
+    for record in filtered_historical:
+
         deadline = deadline_datetime(
             record
         )
@@ -932,10 +956,8 @@ def main():
             expired += 1
             continue
 
-        if is_clearly_inactive_status(
-            record
-        ):
-            inactive_status += 1
+        if is_inactive(record):
+            inactive += 1
             continue
 
         current_raw.append(
@@ -943,21 +965,24 @@ def main():
         )
 
     # --------------------------------------------------------
-    # NORMALIZAR
+    # Normalizar
     # --------------------------------------------------------
 
     current_records = [
-        normalize_record(record)
-        for record in current_raw
+        normalize_record(
+            record
+        )
+        for record
+        in current_raw
     ]
 
     current_records.sort(
-        key=lambda x: (
-            x.get(
+        key=lambda item: (
+            item.get(
                 "deadline",
                 ""
             ),
-            x.get(
+            item.get(
                 "notice_id",
                 ""
             ),
@@ -965,74 +990,30 @@ def main():
     )
 
     # --------------------------------------------------------
-    # VALIDACION SEMANTICA ESTRUCTURAL
-    # --------------------------------------------------------
-
-    for record in current_records:
-        if (
-            record[
-                "procurement_group"
-            ]
-            != CONSULTING_GROUP
-        ):
-            raise RuntimeError(
-                "Registro actual fuera "
-                "del grupo CS"
-            )
-
-        if (
-            record[
-                "notice_type"
-            ]
-            != NOTICE_TYPE
-        ):
-            raise RuntimeError(
-                "Registro actual fuera "
-                "del tipo REOI"
-            )
-
-        if not (
-            language_is_english_or_spanish(
-                record["language"]
-            )
-        ):
-            raise RuntimeError(
-                "Registro actual fuera "
-                "de EN/ES"
-            )
-
-    # --------------------------------------------------------
     # JSON
     # --------------------------------------------------------
 
     output = {
-        "source": (
-            "World Bank "
-            "Procurement Notices"
-        ),
 
-        "api": API_URL,
+        "source":
+            "World Bank Procurement Notices",
+
+        "api":
+            API_URL,
 
         "fechaExtraccion":
             extracted_at,
 
         "filters": {
-            "procurement_group":
+
+            "procurement_group_exact":
                 CONSULTING_GROUP,
-            "notice_type":
+
+            "notice_type_exact":
                 NOTICE_TYPE,
-            "languages": [
-                "English",
-                "Spanish",
-            ],
-            "current_definition":
-                (
-                    "submission_deadline "
-                    ">= extraction time "
-                    "and notice not "
-                    "cancelled/draft/"
-                    "withdrawn"
-                ),
+
+            "languages":
+                LANGUAGE_FILTERS,
         },
 
         "languageControls":
@@ -1040,7 +1021,7 @@ def main():
 
         "historicalFilteredUnique":
             len(
-                full_filtered_universe
+                filtered_historical
             ),
 
         "expiredRecords":
@@ -1050,14 +1031,15 @@ def main():
             no_deadline,
 
         "inactiveStatusRecords":
-            inactive_status,
+            inactive,
 
         "currentConsultingEnEs":
             len(
                 current_records
             ),
 
-        "coverageComplete": True,
+        "coverageComplete":
+            True,
 
         "validationStatus":
             "OK",
@@ -1070,6 +1052,7 @@ def main():
         "w",
         encoding="utf-8",
     ) as f:
+
         json.dump(
             output,
             f,
@@ -1110,6 +1093,7 @@ def main():
         encoding="utf-8-sig",
         newline="",
     ) as f:
+
         writer = csv.DictWriter(
             f,
             fieldnames=csv_fields,
@@ -1122,7 +1106,7 @@ def main():
         )
 
     # --------------------------------------------------------
-    # VALIDAR JSON / CSV
+    # Validar cantidad CSV
     # --------------------------------------------------------
 
     json_count = len(
@@ -1134,17 +1118,18 @@ def main():
         encoding="utf-8-sig",
         newline="",
     ) as f:
-        reader = csv.reader(f)
 
         csv_count = (
             sum(
                 1
-                for _ in reader
+                for _
+                in csv.reader(f)
             )
             - 1
         )
 
     if json_count != csv_count:
+
         raise RuntimeError(
             "JSON y CSV no coinciden: "
             f"{json_count} != "
@@ -1152,7 +1137,7 @@ def main():
         )
 
     # --------------------------------------------------------
-    # HASHES
+    # Hash
     # --------------------------------------------------------
 
     sha_json = sha256_file(
@@ -1164,16 +1149,16 @@ def main():
     )
 
     # --------------------------------------------------------
-    # METADATA
+    # Metadata
     # --------------------------------------------------------
 
     metadata = {
-        "source": (
-            "World Bank "
-            "Procurement Notices"
-        ),
 
-        "api": API_URL,
+        "source":
+            "World Bank Procurement Notices",
+
+        "api":
+            API_URL,
 
         "extracted_at":
             extracted_at,
@@ -1184,17 +1169,15 @@ def main():
         "notice_type":
             NOTICE_TYPE,
 
-        "languages": [
-            "English",
-            "Spanish",
-        ],
+        "languages":
+            LANGUAGE_FILTERS,
 
         "language_controls":
             language_controls,
 
         "historical_filtered_unique":
             len(
-                full_filtered_universe
+                filtered_historical
             ),
 
         "expired_records":
@@ -1204,17 +1187,13 @@ def main():
             no_deadline,
 
         "inactive_status_records":
-            inactive_status,
+            inactive,
 
         "current_records":
-            len(
-                current_records
-            ),
+            json_count,
 
         "current_consulting_en_es":
-            len(
-                current_records
-            ),
+            json_count,
 
         "json_records":
             json_count,
@@ -1225,16 +1204,19 @@ def main():
         "coverage_complete":
             True,
 
-        "coverage_scope": (
-            "100% of World Bank "
-            "Request for Expression "
-            "of Interest notices with "
-            "procurement_group=CS in "
-            "English or Spanish, "
-            "then filtered to notices "
-            "whose submission deadline "
-            "has not expired"
-        ),
+        "coverage_scope":
+            (
+                "100% of World Bank "
+                "Request for Expression "
+                "of Interest notices with "
+                "procurement_group=CS "
+                "and English/Spanish "
+                "language filters, "
+                "subsequently restricted "
+                "to notices with an "
+                "unexpired submission "
+                "deadline"
+            ),
 
         "validation_status":
             "OK",
@@ -1250,6 +1232,7 @@ def main():
         "w",
         encoding="utf-8",
     ) as f:
+
         json.dump(
             metadata,
             f,
@@ -1265,16 +1248,17 @@ def main():
     print(
         "=========================================="
     )
+
     print(
         "WORLD BANK FINAL VALIDATION"
     )
+
     print(
         "=========================================="
     )
 
-    for control in (
-        language_controls
-    ):
+    for control in language_controls:
+
         print(
             f"{control['language_filter']}: "
             f"{control['records_downloaded']}/"
@@ -1283,12 +1267,12 @@ def main():
         )
 
     print(
-        "Historical filtered unique: "
-        f"{len(full_filtered_universe)}"
+        f"Historical filtered unique: "
+        f"{len(filtered_historical)}"
     )
 
     print(
-        f"Expired:                   "
+        f"Expired records:            "
         f"{expired}"
     )
 
@@ -1299,12 +1283,12 @@ def main():
 
     print(
         f"Inactive status:            "
-        f"{inactive_status}"
+        f"{inactive}"
     )
 
     print(
         f"CURRENT CONSULTING EN/ES:   "
-        f"{len(current_records)}"
+        f"{json_count}"
     )
 
     print(
@@ -1331,20 +1315,25 @@ def main():
 
 
 if __name__ == "__main__":
+
     try:
         main()
 
     except Exception as exc:
+
         print("")
         print(
             "=========================================="
         )
+
         print(
             f"ERROR: {exc}"
         )
+
         print(
             "Coverage complete: False"
         )
+
         print(
             "=========================================="
         )
