@@ -1,20 +1,46 @@
 {
   "source": "World Bank Procurement Notices",
-  "extracted_at": "2026-08-22T00:12:45Z",
-  "lookback_days": 180,
-  "publication_cutoff": "2026-02-23T00:12:45Z",
-  "api_historical_total": 415989,
-  "pages_scanned": 6,
-  "records_scanned": 600,
-  "recent_records": 0,
-  "current_records": 0,
-  "current_consulting_en_es": 0,
-  "json_records": 0,
-  "csv_records": 0,
+  "api": "https://search.worldbank.org/api/v2/procnotices",
+  "extracted_at": "2026-08-22T01:34:21Z",
+  "language_controls": [
+    {
+      "language_filter": "English",
+      "api_total": 30912,
+      "records_downloaded": 30912,
+      "pages": 310,
+      "duplicate_records": 8,
+      "recovery_passes": 1,
+      "coverage_complete": true
+    },
+    {
+      "language_filter": "Spanish",
+      "api_total": 0,
+      "records_downloaded": 0,
+      "pages": 1,
+      "duplicate_records": 0,
+      "recovery_passes": 0,
+      "coverage_complete": true
+    },
+    {
+      "language_filter": "Spanish; Castilian",
+      "api_total": 1850,
+      "records_downloaded": 1850,
+      "pages": 19,
+      "duplicate_records": 0,
+      "recovery_passes": 0,
+      "coverage_complete": true
+    }
+  ],
+  "historical_filtered_unique": 32762,
+  "expired_records": 31507,
+  "records_without_deadline": 1077,
+  "inactive_status_records": 0,
+  "current_records": 178,
+  "current_consulting_en_es": 178,
+  "json_records": 178,
+  "csv_records": 178,
   "coverage_complete": true,
-  "coverage_scope": "All notices published within the last 180 days, then filtered to current consulting opportunities in English or Spanish",
-  "stop_reason": "Reached page entirely older than 180 days",
   "validation_status": "OK",
-  "sha256_json": "dcdd7c3bbe2acdd89a79bcef8848953e89a92946791b2b1e67731f2d5fd725e2",
-  "sha256_csv": "956a679b99fb2615ee2317d2e0b9368a28f1c9ef254d04ca1f9d2c751a86b607"
+  "sha256_json": "e32b0c59417782087d54df6c9c81ffe190811690dcf8cd4b0d22ee12b0e5677e",
+  "sha256_csv": "a63d99cf17c353d5363bfdded811b8e814954aab8c17f16a1ddd969fb49928cc"
 }
