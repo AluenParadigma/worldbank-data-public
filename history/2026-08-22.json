@@ -1,0 +1,15 @@
+{
+  "source": "World Bank Procurement Notices",
+  "fechaExtraccion": "2026-08-22T00:12:45Z",
+  "lookbackDays": 180,
+  "publicationCutoff": "2026-02-23T00:12:45Z",
+  "apiHistoricalTotal": 415989,
+  "pagesScanned": 6,
+  "recordsScanned": 600,
+  "recentRecords": 0,
+  "currentRecords": 0,
+  "currentConsultingEnEs": 0,
+  "coverageComplete": true,
+  "stopReason": "Reached page entirely older than 180 days",
+  "data": []
+}
