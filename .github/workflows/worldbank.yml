@@ -41,6 +41,10 @@ jobs:
           json_path = Path("data/latest.json")
           csv_path = Path("data/latest.csv")
 
+          # ---------------------------------------------------------
+          # 1. Verificar existencia de archivos
+          # ---------------------------------------------------------
+
           for path in [
               metadata_path,
               json_path,
@@ -51,17 +55,45 @@ jobs:
                       f"ERROR: falta archivo {path}"
                   )
 
+          # ---------------------------------------------------------
+          # 2. Leer metadata
+          # ---------------------------------------------------------
+
           with metadata_path.open(
               "r",
               encoding="utf-8"
           ) as f:
               metadata = json.load(f)
 
+          # ---------------------------------------------------------
+          # 3. Leer latest.json
+          # ---------------------------------------------------------
+
           with json_path.open(
               "r",
               encoding="utf-8"
           ) as f:
               payload = json.load(f)
+
+          if "data" not in payload:
+              raise SystemExit(
+                  "ERROR: latest.json no contiene data"
+              )
+
+          if not isinstance(payload["data"], list):
+              raise SystemExit(
+                  "ERROR: latest.json.data no es una lista"
+              )
+
+          # ---------------------------------------------------------
+          # 4. Contar registros JSON
+          # ---------------------------------------------------------
+
+          json_records = len(payload["data"])
+
+          # ---------------------------------------------------------
+          # 5. Contar registros CSV
+          # ---------------------------------------------------------
 
           with csv_path.open(
               "r",
@@ -70,86 +102,147 @@ jobs:
           ) as f:
               rows = list(csv.reader(f))
 
-          csv_records = len(rows) - 1
-          json_records = len(payload["data"])
+          if not rows:
+              raise SystemExit(
+                  "ERROR: latest.csv esta vacio"
+              )
 
-          expected = metadata[
+          csv_records = len(rows) - 1
+
+          # ---------------------------------------------------------
+          # 6. Obtener valores de metadata
+          # ---------------------------------------------------------
+
+          expected = metadata.get(
               "current_consulting_en_es"
+          )
+
+          metadata_json_records = metadata.get(
+              "json_records"
+          )
+
+          metadata_csv_records = metadata.get(
+              "csv_records"
+          )
+
+          coverage_complete = metadata.get(
+              "coverage_complete"
+          )
+
+          validation_status = metadata.get(
+              "validation_status"
+          )
+
+          pages_scanned = metadata.get(
+              "pages_scanned"
+          )
+
+          records_scanned = metadata.get(
+              "records_scanned"
+          )
+
+          recent_records = metadata.get(
+              "recent_records"
+          )
+
+          current_records = metadata.get(
+              "current_records"
+          )
+
+          stop_reason = metadata.get(
+              "stop_reason"
+          )
+
+          # ---------------------------------------------------------
+          # 7. Mostrar controles
+          # ---------------------------------------------------------
+
+          print("")
+          print("==========================================")
+          print("WORLD BANK FILE VALIDATION")
+          print("==========================================")
+          print(f"Pages scanned:               {pages_scanned}")
+          print(f"Records scanned:             {records_scanned}")
+          print(f"Recent records:              {recent_records}")
+          print(f"Current records:             {current_records}")
+          print(f"Current consulting EN/ES:    {expected}")
+          print(f"Metadata JSON records:       {metadata_json_records}")
+          print(f"Actual JSON records:         {json_records}")
+          print(f"Metadata CSV records:        {metadata_csv_records}")
+          print(f"Actual CSV records:          {csv_records}")
+          print(f"Coverage complete:           {coverage_complete}")
+          print(f"Stop reason:                 {stop_reason}")
+          print(f"Validation status:           {validation_status}")
+          print("==========================================")
+
+          # ---------------------------------------------------------
+          # 8. Validaciones
+          # ---------------------------------------------------------
+
+          required_fields = [
+              "current_consulting_en_es",
+              "json_records",
+              "csv_records",
+              "coverage_complete",
+              "validation_status",
+              "pages_scanned",
+              "records_scanned",
+              "recent_records",
+              "current_records",
+              "stop_reason",
           ]
 
-          print(
-              f"Expected current records: {expected}"
-          )
-          print(
-              f"JSON records: {json_records}"
-          )
-          print(
-              f"CSV records: {csv_records}"
-          )
+          for field in required_fields:
+              if field not in metadata:
+                  raise SystemExit(
+                      f"ERROR: metadata no contiene {field}"
+                  )
 
           if expected != json_records:
               raise SystemExit(
-                  "ERROR: metadata != JSON"
+                  f"ERROR: current_consulting_en_es "
+                  f"({expected}) != JSON ({json_records})"
               )
 
           if expected != csv_records:
               raise SystemExit(
-                  "ERROR: metadata != CSV"
+                  f"ERROR: current_consulting_en_es "
+                  f"({expected}) != CSV ({csv_records})"
               )
 
-          if (
-              metadata[
-                  "historical_records_downloaded"
-              ]
-              !=
-              metadata[
-                  "api_historical_total"
-              ]
-          ):
+          if metadata_json_records != json_records:
               raise SystemExit(
-                  "ERROR: historical coverage incomplete"
+                  "ERROR: metadata json_records != JSON real"
               )
 
-          if (
-              metadata[
-                  "historical_coverage_complete"
-              ]
-              is not True
-          ):
+          if metadata_csv_records != csv_records:
               raise SystemExit(
-                  "ERROR: historical coverage false"
+                  "ERROR: metadata csv_records != CSV real"
               )
 
-          if (
-              metadata[
-                  "current_coverage_complete"
-              ]
-              is not True
-          ):
+          if coverage_complete is not True:
               raise SystemExit(
-                  "ERROR: current coverage false"
+                  "ERROR: coverage_complete != true"
               )
 
-          if (
-              metadata["validation_status"]
-              != "OK"
-          ):
+          if validation_status != "OK":
               raise SystemExit(
-                  "ERROR: validation status not OK"
+                  "ERROR: validation_status != OK"
               )
 
           print("")
           print(
               f"FINAL WORLD BANK COVERAGE: "
-              f"{expected}/{expected} - 100%"
+              f"{expected}/{expected}"
           )
-          print(
-              "VALIDATION STATUS: OK"
-          )
+          print("VALIDATION STATUS: OK")
           PY
 
       - name: Show metadata
         run: |
+          echo "=========================================="
+          echo "data/metadata.json"
+          echo "=========================================="
           cat data/metadata.json
 
       - name: Save daily history
@@ -167,15 +260,12 @@ jobs:
           cp data/metadata.json \
             "history/${DATE}-metadata.json"
 
+          echo "Historical snapshot saved for ${DATE}"
+
       - name: Commit results
         run: |
-          git config \
-            user.name \
-            "worldbank-monitor"
-
-          git config \
-            user.email \
-            "worldbank-monitor@users.noreply.github.com"
+          git config user.name "worldbank-monitor"
+          git config user.email "worldbank-monitor@users.noreply.github.com"
 
           git add data/
           git add history/
@@ -185,7 +275,6 @@ jobs:
             exit 0
           fi
 
-          git commit \
-            -m "Update World Bank procurement data"
+          git commit -m "Update World Bank procurement data $(date -u '+%Y-%m-%d %H:%M UTC')"
 
           git push
