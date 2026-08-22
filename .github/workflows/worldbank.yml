@@ -42,7 +42,7 @@ jobs:
           csv_path = Path("data/latest.csv")
 
           # ---------------------------------------------------------
-          # 1. Verificar existencia de archivos
+          # 1. Verificar archivos
           # ---------------------------------------------------------
 
           for path in [
@@ -66,7 +66,7 @@ jobs:
               metadata = json.load(f)
 
           # ---------------------------------------------------------
-          # 3. Leer latest.json
+          # 3. Leer JSON
           # ---------------------------------------------------------
 
           with json_path.open(
@@ -85,14 +85,10 @@ jobs:
                   "ERROR: latest.json.data no es una lista"
               )
 
-          # ---------------------------------------------------------
-          # 4. Contar registros JSON
-          # ---------------------------------------------------------
-
           json_records = len(payload["data"])
 
           # ---------------------------------------------------------
-          # 5. Contar registros CSV
+          # 4. Leer CSV
           # ---------------------------------------------------------
 
           with csv_path.open(
@@ -110,7 +106,7 @@ jobs:
           csv_records = len(rows) - 1
 
           # ---------------------------------------------------------
-          # 6. Obtener valores de metadata
+          # 5. Campos metadata
           # ---------------------------------------------------------
 
           expected = metadata.get(
@@ -133,50 +129,119 @@ jobs:
               "validation_status"
           )
 
-          pages_scanned = metadata.get(
-              "pages_scanned"
+          language_controls = metadata.get(
+              "language_controls",
+              []
           )
 
-          records_scanned = metadata.get(
-              "records_scanned"
+          historical_filtered_unique = metadata.get(
+              "historical_filtered_unique"
           )
 
-          recent_records = metadata.get(
-              "recent_records"
+          expired_records = metadata.get(
+              "expired_records"
           )
 
-          current_records = metadata.get(
-              "current_records"
+          records_without_deadline = metadata.get(
+              "records_without_deadline"
           )
 
-          stop_reason = metadata.get(
-              "stop_reason"
+          inactive_status_records = metadata.get(
+              "inactive_status_records"
           )
 
           # ---------------------------------------------------------
-          # 7. Mostrar controles
+          # 6. Mostrar controles
           # ---------------------------------------------------------
 
           print("")
           print("==========================================")
           print("WORLD BANK FILE VALIDATION")
           print("==========================================")
-          print(f"Pages scanned:               {pages_scanned}")
-          print(f"Records scanned:             {records_scanned}")
-          print(f"Recent records:              {recent_records}")
-          print(f"Current records:             {current_records}")
-          print(f"Current consulting EN/ES:    {expected}")
-          print(f"Metadata JSON records:       {metadata_json_records}")
-          print(f"Actual JSON records:         {json_records}")
-          print(f"Metadata CSV records:        {metadata_csv_records}")
-          print(f"Actual CSV records:          {csv_records}")
-          print(f"Coverage complete:           {coverage_complete}")
-          print(f"Stop reason:                 {stop_reason}")
-          print(f"Validation status:           {validation_status}")
+
+          for control in language_controls:
+              language = control.get(
+                  "language_filter"
+              )
+
+              api_total = control.get(
+                  "api_total"
+              )
+
+              downloaded = control.get(
+                  "records_downloaded"
+              )
+
+              duplicates = control.get(
+                  "duplicate_records",
+                  0
+              )
+
+              recovery = control.get(
+                  "recovery_passes",
+                  0
+              )
+
+              complete = control.get(
+                  "coverage_complete"
+              )
+
+              print(
+                  f"{language}: "
+                  f"{downloaded}/{api_total} | "
+                  f"duplicates={duplicates} | "
+                  f"recovery={recovery} | "
+                  f"complete={complete}"
+              )
+
+          print(
+              f"Historical filtered unique: {historical_filtered_unique}"
+          )
+
+          print(
+              f"Expired records:             {expired_records}"
+          )
+
+          print(
+              f"Records without deadline:    {records_without_deadline}"
+          )
+
+          print(
+              f"Inactive status records:     {inactive_status_records}"
+          )
+
+          print(
+              f"Expected current records:    {expected}"
+          )
+
+          print(
+              f"Metadata JSON records:       {metadata_json_records}"
+          )
+
+          print(
+              f"Actual JSON records:         {json_records}"
+          )
+
+          print(
+              f"Metadata CSV records:        {metadata_csv_records}"
+          )
+
+          print(
+              f"Actual CSV records:          {csv_records}"
+          )
+
+          print(
+              f"Coverage complete:           {coverage_complete}"
+          )
+
+          print(
+              f"Validation status:           {validation_status}"
+          )
+
           print("==========================================")
 
           # ---------------------------------------------------------
-          # 8. Validaciones
+          # 7. Validar campos obligatorios
           # ---------------------------------------------------------
 
           required_fields = [
@@ -185,11 +250,11 @@ jobs:
               "csv_records",
               "coverage_complete",
               "validation_status",
-              "pages_scanned",
-              "records_scanned",
-              "recent_records",
-              "current_records",
-              "stop_reason",
+              "language_controls",
+              "historical_filtered_unique",
+              "expired_records",
+              "records_without_deadline",
+              "inactive_status_records",
           ]
 
           for field in required_fields:
@@ -197,6 +262,63 @@ jobs:
                   raise SystemExit(
                       f"ERROR: metadata no contiene {field}"
                   )
+
+          # ---------------------------------------------------------
+          # 8. Validar cada universo por idioma
+          # ---------------------------------------------------------
+
+          if not language_controls:
+              raise SystemExit(
+                  "ERROR: language_controls esta vacio"
+              )
+
+          for control in language_controls:
+
+              language = control.get(
+                  "language_filter"
+              )
+
+              api_total = control.get(
+                  "api_total"
+              )
+
+              downloaded = control.get(
+                  "records_downloaded"
+              )
+
+              complete = control.get(
+                  "coverage_complete"
+              )
+
+              if api_total is None:
+                  raise SystemExit(
+                      f"ERROR: {language} sin api_total"
+                  )
+
+              if downloaded is None:
+                  raise SystemExit(
+                      f"ERROR: {language} sin records_downloaded"
+                  )
+
+              if downloaded != api_total:
+                  raise SystemExit(
+                      f"ERROR DE COBERTURA {language}: "
+                      f"{downloaded} != {api_total}"
+                  )
+
+              if complete is not True:
+                  raise SystemExit(
+                      f"ERROR: cobertura incompleta para {language}"
+                  )
+
+          # ---------------------------------------------------------
+          # 9. Validar registros finales
+          # ---------------------------------------------------------
+
+          if expected is None:
+              raise SystemExit(
+                  "ERROR: current_consulting_en_es es None"
+              )
 
           if expected != json_records:
               raise SystemExit(
@@ -230,12 +352,21 @@ jobs:
                   "ERROR: validation_status != OK"
               )
 
+          # ---------------------------------------------------------
+          # 10. Resultado
+          # ---------------------------------------------------------
+
           print("")
+          print("==========================================")
+          print("WORLD BANK VALIDATION SUCCESS")
+          print("==========================================")
           print(
-              f"FINAL WORLD BANK COVERAGE: "
+              f"CURRENT CONSULTING EN/ES: "
               f"{expected}/{expected}"
           )
+          print("COVERAGE COMPLETE: TRUE")
           print("VALIDATION STATUS: OK")
+          print("==========================================")
           PY
 
       - name: Show metadata
