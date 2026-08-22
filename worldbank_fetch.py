@@ -9,10 +9,6 @@ from pathlib import Path
 import requests
 
 
-# ============================================================
-# CONFIGURACION
-# ============================================================
-
 API_URL = "https://search.worldbank.org/api/v2/procnotices"
 
 OUTPUT_DIR = Path("data")
@@ -31,18 +27,12 @@ REQUEST_DELAY_SECONDS = 0.10
 CONSULTING_GROUP = "CS"
 NOTICE_TYPE = "Request for Expression of Interest"
 
-# Vamos a consultar las variantes posibles del español.
-# Si alguna variante devuelve 0 registros, simplemente no aporta datos.
 LANGUAGE_FILTERS = [
     "English",
     "Spanish",
     "Spanish; Castilian",
 ]
 
-
-# ============================================================
-# FECHAS
-# ============================================================
 
 def utc_now():
     return datetime.now(timezone.utc)
@@ -70,33 +60,23 @@ def parse_date(value):
 
     for fmt in formats:
         try:
-            dt = datetime.strptime(
-                value[:19],
-                fmt
-            )
-            return dt.replace(
-                tzinfo=timezone.utc
-            )
+            dt = datetime.strptime(value[:19], fmt)
+            return dt.replace(tzinfo=timezone.utc)
         except Exception:
             pass
 
     return None
 
 
-# ============================================================
-# HTTP
-# ============================================================
-
 def request_with_retry(params):
     last_error = None
 
     headers = {
-        "User-Agent": "Paradigma-WorldBank-Monitor/2.0",
+        "User-Agent": "Paradigma-WorldBank-Monitor/3.0",
         "Accept": "application/json",
     }
 
     for attempt in range(1, MAX_RETRIES + 1):
-
         try:
             response = requests.get(
                 API_URL,
@@ -133,7 +113,6 @@ def request_with_retry(params):
             response.raise_for_status()
 
         except Exception as exc:
-
             last_error = exc
 
             print(
@@ -152,16 +131,8 @@ def request_with_retry(params):
     )
 
 
-# ============================================================
-# RESPUESTA API
-# ============================================================
-
 def extract_records(payload):
-
-    records = payload.get(
-        "procnotices",
-        []
-    )
+    records = payload.get("procnotices", [])
 
     if isinstance(records, list):
         return records
@@ -177,7 +148,6 @@ def extract_records(payload):
 
 
 def extract_total(payload):
-
     value = payload.get("total")
 
     if value is None:
@@ -185,23 +155,11 @@ def extract_total(payload):
             "La API no devolvio el campo total"
         )
 
-    try:
-        return int(value)
+    return int(value)
 
-    except Exception:
-        raise RuntimeError(
-            f"Total invalido: {value}"
-        )
-
-
-# ============================================================
-# HELPERS
-# ============================================================
 
 def get_value(record, *keys):
-
     for key in keys:
-
         value = record.get(key)
 
         if value not in (
@@ -216,24 +174,14 @@ def get_value(record, *keys):
 
 
 def normalize_language(value):
-
     return str(
         value or ""
     ).strip().lower()
 
 
-def language_matches(
-    actual,
-    requested
-):
-
-    actual = normalize_language(
-        actual
-    )
-
-    requested = normalize_language(
-        requested
-    )
+def language_matches(actual, requested):
+    actual = normalize_language(actual)
+    requested = normalize_language(requested)
 
     if requested == "english":
         return actual == "english"
@@ -244,12 +192,7 @@ def language_matches(
     return actual == requested
 
 
-# ============================================================
-# DEADLINE
-# ============================================================
-
 def deadline_datetime(record):
-
     value = get_value(
         record,
         "submission_deadline_date",
@@ -270,9 +213,7 @@ def deadline_datetime(record):
     ).strip()
 
     if time_value:
-
         try:
-
             parts = (
                 time_value
                 .replace(".", ":")
@@ -300,7 +241,6 @@ def deadline_datetime(record):
 
 
 def is_inactive(record):
-
     status = str(
         record.get(
             "notice_status",
@@ -317,33 +257,10 @@ def is_inactive(record):
     }
 
 
-def is_current(record, extraction_dt):
-
-    deadline = deadline_datetime(
-        record
-    )
-
-    if deadline is None:
-        return False
-
-    if deadline < extraction_dt:
-        return False
-
-    if is_inactive(record):
-        return False
-
-    return True
-
-
-# ============================================================
-# VALIDACION DEL FILTRO SERVER-SIDE
-# ============================================================
-
 def validate_record_filter(
     record,
     requested_language
 ):
-
     procurement_group = str(
         record.get(
             "procurement_group",
@@ -378,14 +295,40 @@ def validate_record_filter(
     return True
 
 
-# ============================================================
-# DESCARGAR SUBUNIVERSO COMPLETO
-# ============================================================
+def fetch_page(
+    base_params,
+    offset
+):
+    params = dict(base_params)
+    params["os"] = offset
+
+    response = request_with_retry(params)
+    payload = response.json()
+
+    return (
+        extract_total(payload),
+        extract_records(payload),
+    )
+
+
+def validate_page_records(
+    records,
+    language_filter
+):
+    for record in records:
+        if not validate_record_filter(
+            record,
+            language_filter
+        ):
+            raise RuntimeError(
+                "La API devolvio un registro "
+                "fuera del filtro solicitado"
+            )
+
 
 def fetch_language_universe(
     language_filter
 ):
-
     print("")
     print(
         "=========================================="
@@ -408,220 +351,232 @@ def fetch_language_universe(
             language_filter,
     }
 
-    # --------------------------------------------------------
-    # Primera pagina
-    # --------------------------------------------------------
-
-    params = dict(
-        base_params
-    )
-
-    params["os"] = 0
-
-    response = request_with_retry(
-        params
-    )
-
-    payload = response.json()
-
-    api_total = extract_total(
-        payload
-    )
-
-    records = extract_records(
-        payload
+    # Primera consulta
+    api_total, records = fetch_page(
+        base_params,
+        0
     )
 
     print(
         f"API total: {api_total}"
     )
 
-    # Si no existe ninguna oportunidad en esa variante
-    # de idioma, es un resultado valido.
     if api_total == 0:
-
-        if records:
-            raise RuntimeError(
-                "API informa total=0 "
-                "pero devolvio registros"
-            )
-
         return {
             "language": language_filter,
             "api_total": 0,
             "records": [],
             "pages": 1,
+            "duplicate_records": 0,
+            "recovery_passes": 0,
             "coverage_complete": True,
         }
 
     if not records:
         raise RuntimeError(
-            "API informa registros pero "
-            "la primera pagina esta vacia"
+            "Primera pagina vacia "
+            "con total > 0"
         )
 
-    # --------------------------------------------------------
-    # Verificar que la API respete realmente los filtros
-    # --------------------------------------------------------
-
-    for record in records:
-
-        if not validate_record_filter(
-            record,
-            language_filter
-        ):
-
-            print("")
-            print(
-                "REGISTRO FUERA DEL FILTRO:"
-            )
-
-            print(
-                json.dumps(
-                    {
-                        "id":
-                            record.get("id"),
-
-                        "procurement_group":
-                            record.get(
-                                "procurement_group"
-                            ),
-
-                        "notice_type":
-                            record.get(
-                                "notice_type"
-                            ),
-
-                        "notice_lang_name":
-                            record.get(
-                                "notice_lang_name"
-                            ),
-                    },
-                    ensure_ascii=False,
-                    indent=2,
-                )
-            )
-
-            raise RuntimeError(
-                "Los filtros server-side "
-                "no fueron respetados"
-            )
-
-    all_records = list(
-        records
+    validate_page_records(
+        records,
+        language_filter
     )
 
-    page = 1
+    all_by_id = {}
+
+    raw_downloaded = 0
+    pages = 0
 
     # --------------------------------------------------------
-    # Paginar hasta alcanzar exactamente api_total
+    # PASADA PRINCIPAL
     # --------------------------------------------------------
 
-    while len(all_records) < api_total:
+    offset = 0
 
-        offset = len(
-            all_records
+    while offset < api_total:
+        current_total, records = fetch_page(
+            base_params,
+            offset
         )
 
-        params = dict(
-            base_params
-        )
-
-        params["os"] = offset
-
-        print(
-            f"Pagina {page + 1} | "
-            f"offset={offset} | "
-            f"{len(all_records)}/{api_total}"
-        )
-
-        response = request_with_retry(
-            params
-        )
-
-        payload = response.json()
-
-        new_total = extract_total(
-            payload
-        )
-
-        # Si cambia el total durante la extracción,
-        # abortamos antes de declarar falso 100%.
-        if new_total != api_total:
-
+        if current_total != api_total:
             raise RuntimeError(
-                "El total informado por la API "
-                "cambio durante la extraccion: "
-                f"{api_total} -> {new_total}"
+                "El total de la API cambio "
+                "durante la extraccion: "
+                f"{api_total} -> "
+                f"{current_total}"
             )
-
-        records = extract_records(
-            payload
-        )
 
         if not records:
-
             raise RuntimeError(
-                "La API devolvio una pagina vacia "
-                "antes de alcanzar el total"
+                "Pagina vacia antes "
+                "de alcanzar el total"
             )
 
-        for record in records:
-
-            if not validate_record_filter(
-                record,
-                language_filter
-            ):
-
-                raise RuntimeError(
-                    "La API devolvio un registro "
-                    "fuera del filtro solicitado"
-                )
-
-        all_records.extend(
-            records
+        validate_page_records(
+            records,
+            language_filter
         )
 
-        page += 1
+        for record in records:
+            notice_id = str(
+                record.get(
+                    "id",
+                    ""
+                )
+            ).strip()
+
+            if not notice_id:
+                raise RuntimeError(
+                    "Registro sin ID"
+                )
+
+            all_by_id[notice_id] = record
+
+        raw_downloaded += len(records)
+        pages += 1
+
+        print(
+            f"Pagina {pages} | "
+            f"offset={offset} | "
+            f"raw={raw_downloaded}/"
+            f"{api_total} | "
+            f"unique={len(all_by_id)}"
+        )
+
+        offset += len(records)
 
         time.sleep(
             REQUEST_DELAY_SECONDS
         )
 
+    duplicates = (
+        raw_downloaded
+        - len(all_by_id)
+    )
+
+    print("")
+    print(
+        f"Primera pasada:"
+    )
+    print(
+        f"Raw downloaded: {raw_downloaded}"
+    )
+    print(
+        f"Unique IDs: {len(all_by_id)}"
+    )
+    print(
+        f"Duplicates detected: {duplicates}"
+    )
+
     # --------------------------------------------------------
-    # Validar IDs unicos
+    # RECUPERACION CON PAGINACION SOLAPADA
+    #
+    # Si el dataset se movio durante la primera pasada,
+    # repetimos usando pasos de 50 registros.
+    # Esto genera overlap y permite capturar IDs omitidos
+    # por cambios de orden entre llamadas.
     # --------------------------------------------------------
 
-    by_id = {}
+    recovery_passes = 0
 
-    for record in all_records:
+    overlap_step = 50
 
-        notice_id = str(
-            record.get(
-                "id",
-                ""
+    while (
+        len(all_by_id) < api_total
+        and recovery_passes < 3
+    ):
+        recovery_passes += 1
+
+        print("")
+        print(
+            "=========================================="
+        )
+        print(
+            f"RECOVERY PASS {recovery_passes}"
+        )
+        print(
+            "=========================================="
+        )
+
+        offset = 0
+
+        before = len(all_by_id)
+
+        while offset < api_total:
+            current_total, records = fetch_page(
+                base_params,
+                offset
             )
-        ).strip()
 
-        if not notice_id:
+            if current_total != api_total:
+                raise RuntimeError(
+                    "El total de la API cambio "
+                    "durante recovery: "
+                    f"{api_total} -> "
+                    f"{current_total}"
+                )
 
-            raise RuntimeError(
-                "Registro sin ID"
+            if not records:
+                break
+
+            validate_page_records(
+                records,
+                language_filter
             )
 
-        by_id[
-            notice_id
-        ] = record
+            for record in records:
+                notice_id = str(
+                    record.get(
+                        "id",
+                        ""
+                    )
+                ).strip()
+
+                if notice_id:
+                    all_by_id[
+                        notice_id
+                    ] = record
+
+            print(
+                f"Recovery offset={offset} | "
+                f"unique="
+                f"{len(all_by_id)}/"
+                f"{api_total}"
+            )
+
+            offset += overlap_step
+
+            time.sleep(
+                REQUEST_DELAY_SECONDS
+            )
+
+        added = (
+            len(all_by_id)
+            - before
+        )
+
+        print(
+            f"Nuevos IDs recuperados: "
+            f"{added}"
+        )
+
+        if added == 0:
+            break
+
+    # --------------------------------------------------------
+    # VALIDACION FINAL
+    # --------------------------------------------------------
 
     unique_records = list(
-        by_id.values()
+        all_by_id.values()
     )
 
     if len(unique_records) != api_total:
-
         raise RuntimeError(
-            "El numero de IDs unicos "
-            "no coincide con total API: "
+            "No fue posible alcanzar cobertura "
+            "100% aun despues de recovery: "
             f"{len(unique_records)} "
             f"!= {api_total}"
         )
@@ -644,19 +599,20 @@ def fetch_language_universe(
             unique_records,
 
         "pages":
-            page,
+            pages,
+
+        "duplicate_records":
+            duplicates,
+
+        "recovery_passes":
+            recovery_passes,
 
         "coverage_complete":
             True,
     }
 
 
-# ============================================================
-# NORMALIZACION
-# ============================================================
-
 def normalize_record(record):
-
     notice_id = get_value(
         record,
         "id",
@@ -682,7 +638,6 @@ def normalize_record(record):
     )
 
     return {
-
         "notice_id":
             notice_id,
 
@@ -804,16 +759,10 @@ def normalize_record(record):
     }
 
 
-# ============================================================
-# SHA256
-# ============================================================
-
 def sha256_file(path):
-
     h = hashlib.sha256()
 
     with path.open("rb") as f:
-
         for chunk in iter(
             lambda: f.read(
                 1024 * 1024
@@ -825,71 +774,40 @@ def sha256_file(path):
     return h.hexdigest()
 
 
-# ============================================================
-# MAIN
-# ============================================================
-
 def main():
-
     extraction_dt = utc_now()
     extracted_at = utc_now_iso()
 
     print(
         "=========================================="
     )
-
     print(
         "WORLD BANK PROCUREMENT MONITOR"
     )
-
     print(
         "=========================================="
     )
 
-    print(
-        f"Extraction time: {extracted_at}"
-    )
-
-    print(
-        f"API: {API_URL}"
-    )
-
-    print(
-        f"Procurement group: "
-        f"{CONSULTING_GROUP}"
-    )
-
-    print(
-        f"Notice type: "
-        f"{NOTICE_TYPE}"
-    )
-
-    # --------------------------------------------------------
-    # Descargar EN + variantes ES
-    # --------------------------------------------------------
-
     subsets = []
 
-    for language_filter in LANGUAGE_FILTERS:
-
-        result = fetch_language_universe(
-            language_filter
+    for language_filter in (
+        LANGUAGE_FILTERS
+    ):
+        result = (
+            fetch_language_universe(
+                language_filter
+            )
         )
 
         subsets.append(
             result
         )
 
-    # --------------------------------------------------------
-    # Consolidar y deduplicar
-    # --------------------------------------------------------
-
     all_by_id = {}
 
     language_controls = []
 
     for subset in subsets:
-
         language_controls.append(
             {
                 "language_filter":
@@ -906,17 +824,24 @@ def main():
                 "pages":
                     subset["pages"],
 
-                "coverage_complete":
+                "duplicate_records":
                     subset[
-                        "coverage_complete"
+                        "duplicate_records"
                     ],
+
+                "recovery_passes":
+                    subset[
+                        "recovery_passes"
+                    ],
+
+                "coverage_complete":
+                    True,
             }
         )
 
-        for record in subset[
-            "records"
-        ]:
-
+        for record in (
+            subset["records"]
+        ):
             notice_id = str(
                 record.get(
                     "id",
@@ -932,18 +857,15 @@ def main():
         all_by_id.values()
     )
 
-    # --------------------------------------------------------
-    # Determinar vigentes
-    # --------------------------------------------------------
-
     current_raw = []
 
     expired = 0
     no_deadline = 0
     inactive = 0
 
-    for record in filtered_historical:
-
+    for record in (
+        filtered_historical
+    ):
         deadline = deadline_datetime(
             record
         )
@@ -964,16 +886,9 @@ def main():
             record
         )
 
-    # --------------------------------------------------------
-    # Normalizar
-    # --------------------------------------------------------
-
     current_records = [
-        normalize_record(
-            record
-        )
-        for record
-        in current_raw
+        normalize_record(record)
+        for record in current_raw
     ]
 
     current_records.sort(
@@ -989,12 +904,7 @@ def main():
         )
     )
 
-    # --------------------------------------------------------
-    # JSON
-    # --------------------------------------------------------
-
     output = {
-
         "source":
             "World Bank Procurement Notices",
 
@@ -1005,7 +915,6 @@ def main():
             extracted_at,
 
         "filters": {
-
             "procurement_group_exact":
                 CONSULTING_GROUP,
 
@@ -1052,17 +961,12 @@ def main():
         "w",
         encoding="utf-8",
     ) as f:
-
         json.dump(
             output,
             f,
             ensure_ascii=False,
             indent=2,
         )
-
-    # --------------------------------------------------------
-    # CSV
-    # --------------------------------------------------------
 
     csv_fields = [
         "notice_id",
@@ -1093,7 +997,6 @@ def main():
         encoding="utf-8-sig",
         newline="",
     ) as f:
-
         writer = csv.DictWriter(
             f,
             fieldnames=csv_fields,
@@ -1105,10 +1008,6 @@ def main():
             current_records
         )
 
-    # --------------------------------------------------------
-    # Validar cantidad CSV
-    # --------------------------------------------------------
-
     json_count = len(
         current_records
     )
@@ -1118,7 +1017,6 @@ def main():
         encoding="utf-8-sig",
         newline="",
     ) as f:
-
         csv_count = (
             sum(
                 1
@@ -1129,16 +1027,9 @@ def main():
         )
 
     if json_count != csv_count:
-
         raise RuntimeError(
-            "JSON y CSV no coinciden: "
-            f"{json_count} != "
-            f"{csv_count}"
+            "JSON y CSV no coinciden"
         )
-
-    # --------------------------------------------------------
-    # Hash
-    # --------------------------------------------------------
 
     sha_json = sha256_file(
         JSON_PATH
@@ -1148,12 +1039,7 @@ def main():
         CSV_PATH
     )
 
-    # --------------------------------------------------------
-    # Metadata
-    # --------------------------------------------------------
-
     metadata = {
-
         "source":
             "World Bank Procurement Notices",
 
@@ -1162,15 +1048,6 @@ def main():
 
         "extracted_at":
             extracted_at,
-
-        "procurement_group":
-            CONSULTING_GROUP,
-
-        "notice_type":
-            NOTICE_TYPE,
-
-        "languages":
-            LANGUAGE_FILTERS,
 
         "language_controls":
             language_controls,
@@ -1204,20 +1081,6 @@ def main():
         "coverage_complete":
             True,
 
-        "coverage_scope":
-            (
-                "100% of World Bank "
-                "Request for Expression "
-                "of Interest notices with "
-                "procurement_group=CS "
-                "and English/Spanish "
-                "language filters, "
-                "subsequently restricted "
-                "to notices with an "
-                "unexpired submission "
-                "deadline"
-            ),
-
         "validation_status":
             "OK",
 
@@ -1232,7 +1095,6 @@ def main():
         "w",
         encoding="utf-8",
     ) as f:
-
         json.dump(
             metadata,
             f,
@@ -1240,77 +1102,52 @@ def main():
             indent=2,
         )
 
-    # --------------------------------------------------------
-    # LOG FINAL
-    # --------------------------------------------------------
-
     print("")
     print(
         "=========================================="
     )
-
     print(
         "WORLD BANK FINAL VALIDATION"
     )
-
     print(
         "=========================================="
     )
 
-    for control in language_controls:
-
+    for control in (
+        language_controls
+    ):
         print(
             f"{control['language_filter']}: "
             f"{control['records_downloaded']}/"
             f"{control['api_total']} "
-            "- 100%"
+            f"- 100% | "
+            f"duplicates="
+            f"{control['duplicate_records']} | "
+            f"recovery="
+            f"{control['recovery_passes']}"
         )
 
     print(
-        f"Historical filtered unique: "
-        f"{len(filtered_historical)}"
-    )
-
-    print(
-        f"Expired records:            "
-        f"{expired}"
-    )
-
-    print(
-        f"Without deadline:           "
-        f"{no_deadline}"
-    )
-
-    print(
-        f"Inactive status:            "
-        f"{inactive}"
-    )
-
-    print(
-        f"CURRENT CONSULTING EN/ES:   "
+        f"CURRENT CONSULTING EN/ES: "
         f"{json_count}"
     )
 
     print(
-        f"JSON records:               "
+        f"JSON records: "
         f"{json_count}"
     )
 
     print(
-        f"CSV records:                "
+        f"CSV records: "
         f"{csv_count}"
     )
 
     print(
-        "Coverage complete:          True"
+        "Coverage complete: True"
     )
 
     print(
-        "Validation status:          OK"
-    )
-
-    print(
-        "=========================================="
+        "Validation status: OK"
     )
 
 
@@ -1325,15 +1162,12 @@ if __name__ == "__main__":
         print(
             "=========================================="
         )
-
         print(
             f"ERROR: {exc}"
         )
-
         print(
             "Coverage complete: False"
         )
-
         print(
             "=========================================="
         )
