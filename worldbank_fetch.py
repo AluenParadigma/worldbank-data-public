@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
-
+csv.field_size_limit(sys.maxsize)
 
 API_URL = "https://search.worldbank.org/api/v2/procnotices"
 
