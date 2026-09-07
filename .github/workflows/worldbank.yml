@@ -35,7 +35,10 @@ jobs:
           python - <<'PY'
           import csv
           import json
+          import sys
           from pathlib import Path
+          csv.field_size_limit(sys.maxsize)
+          
 
           metadata_path = Path("data/metadata.json")
           json_path = Path("data/latest.json")
