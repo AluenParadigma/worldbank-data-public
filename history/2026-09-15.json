@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-09-15T12:42:58Z",
+  "fechaExtraccion": "2026-09-15T15:35:42Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31160,
       "records_downloaded": 31160,
       "pages": 312,
-      "duplicate_records": 17,
+      "duplicate_records": 13,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33032,
-  "expiredRecords": 31785,
+  "expiredRecords": 31786,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 170,
+  "currentConsultingEnEs": 169,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00463851",
-      "project_id": "P177305",
-      "reference_no": "179/C3/C/MOSAP3/26",
-      "title": "Selecção de um Consultor Individual para a realização de Auditoria em Aquisições, referente aos Exercícios Fiscais  2023, 2024 e 2025.",
-      "country": "Angola",
-      "project_name": "Smallholder Agricultural Transformation Project",
-      "institution": "Unidade de Implementação do Projeto (UIP)",
-      "publication_date": "24-Aug-2026",
-      "deadline": "2026-09-15T15:00:00Z",
-      "deadline_date_raw": "2026-09-15T00:00:00Z",
-      "deadline_time_raw": "15:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong></p><p><strong>INDIVIDUAL CONSULTING SERVICES</strong></p><p>&nbsp;</p><p><strong>Country:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Angola</p><p><strong>Project&acute;s Name</strong>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Projecto de Transforma&ccedil;&atilde;o da Agropecu&aacute;ria Familiar (MOSAP 3)</p><p><strong>Loan No.: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>BIRD-9396 &ndash; AO</p><p><strong>Assignment Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>Selection of an Individual Consultant to conduct a procurement audit covering &nbsp;&nbsp;the 2023, 2024, and 2025 fiscal years.</p><p><strong>Reference No</strong><strong>.: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong>179/C3/C/MOSAP3/26</p><p>The Ministry of Agriculture and Forestry (MINAGRIF) has received financing from the World Bank toward the cost of the Smallholder Agricultural Transformation Project (MOSAP 3) and intends to apply part of the proceeds for consulting services.</p><p>The consulting services (&ldquo;the Services&rdquo;) includes (<strong><em>i</em></strong>) reviewing the procurement, contracting, and implementation processes and evaluate the quality, timeliness, reliability and appropriateness of comments and no-objections issued by the Bank for a sample of contracts, to confirm their consistency with the Legal Agreements and associated documents and ensuring that procurement, contracting and disbursement is being carried out in accordance with WB Guidelines and procedures; (<strong><em>ii</em></strong>) verifying technical compliance, physical completion and price competitiveness of each contract in the selected representative sample of contracts and expressing a professional opinion on compliance by the procurement processes with the general principle of economy and efficiency, equal opportunities, transparency; (<strong><em>iii</em></strong>) reviewing the responsibility matrix for the procurement function in the organization, delegation of procurement authority and internal control functions; the capacity of implementing agencies in handling procurement efficiently, comment on the quality of procurement and contracting, and identify reasons for delays, if any and overall, how procurement management facilitates project implementation; (<strong><em>iv</em></strong>) analyzing the risks in the various steps of procurement cycle (definition and quantification of requirements, approval of requisition, supplier sourcing, selection of procurement method, selection of contract type, bid opening and evaluation proceedings, formation of evaluation committees, approval of award, contract management, records management, use of financial securities, management of warranty/maintenance obligations, disposal of assets) and identifying any indicators of questionable standards of ethics in the procurement management and oversight environment that make the processes vulnerable to fraud and corruption or collusive and obstructive practices, and report any suspicious cases; (<strong><em>v</em></strong>) providing advice to MOSAP 3 on procurement and internal control issues and coordination with other ministries and departments on matters arising from each audit and record them in Action Plans (IPR Reports) recommending operations needed to improve project procurement performance consistent with program objectives, accuracy and completeness of the procurement records in the filling system, timely preparation of procurement information, policies and procedures that must be adopted by project management and procurement staff in ensuring orderly, economic, effective and efficient procurement operations in light of deficiencies; and all others required in the Terms of References.</p><p>The estimated level of effort is one person-month, and the contract will have a duration of 4 months, wherein it is expected that the individual consultant carries out site visit missions of about thirty (30) Calendar days. The consultant is expected to commence services no later than January 15th, 2027.</p><p>The detailed Terms of Reference (TOR) for the assignment can be obtained at the address given below.</p><p>The Smallholder Agriculture Transformation Project (MOSAP 3) now invites eligible Individual Consultants to indicate their interest in providing the Services. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services. The short listing criteria are: <em>[<strong>a</strong>]</em><em> Be proficient in procurement and contract management, </em><em>[<strong>b</strong>]</em><em> </em><em>Have a degree in Agronomy, Business administration, Project Management, Law, Engineering; </em><em>[<strong>c</strong>]</em><em> </em><em>Have completed at least 3 similar contracts for the past 5 years; </em><em>[<strong>d</strong>]</em><em> Have at least 10 years of relevant experience with World Bank&rsquo;s Procurement procedures and having worked as a Senior Procurement Specialist in World Bank funded Operations for at least eight (8) years; and </em><em>[<strong>e</strong>]</em><em> Fluency in English and working knowledge of Portuguese language.</em></p><p>The attention of interested Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; [Ed. November2020 (&ldquo;Procurement Regulations&rdquo;)], setting forth the World Bank&rsquo;s policy on conflict of interest. The document in reference may be obtained through the following: link:<em>https://thedocs.worldbank.org/en/doc/1783315330658711950290022020/original/ProcurementRegulations.pdf</em>.</p><p>An Individual Consultant will be selected in accordance with Open Competitive Selection of Individual Consultants (ICS) set out in the World Bank Procurement Regulations.</p><p>Further information can be obtained at the address below during office hours, from 08:00 AM to 03:30 PM.</p><p>Expressions of interest must be delivered in a written form to the address below (in person or by e-mail) by <strong>September 15th, 2026</strong> <strong>at 15:00 (Angola time)</strong>.</p><p>The address above referenced is:</p><p><strong>Att.: Eng&ordm; Felismino Fernandes da Costa</strong></p><p><strong>Director do Projecto</strong></p><p>Projecto de Transforma&ccedil;&atilde;o da Agropecu&aacute;ria Familiar (MOSAP 3)</p><p>Instituto de Desenvolvimento Agr&aacute;rio (IDA)</p><p>Minist&eacute;rio da Agricultura e Florestas (MINAGRIF)</p><p>Avenida Rei Katyavala,&nbsp;Edif&iacute;cio Avenca Plaza n&ordm;43/45, 3&ordm; Andar,&nbsp;Maculusso -Luanda&nbsp;&nbsp;&nbsp;&nbsp;</p><p>Tel.: +244&nbsp;923&nbsp;633 496 ou +244&nbsp;923 608&nbsp;899</p><p>E-mail: procurement@mosap3.ao; procurementexpr@gmail.com</p><p>&nbsp;</p>",
-      "contact_name": "Felismino da Costa",
-      "contact_email": "felisminodacosta@yahoo.com.br",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00463851"
-    },
     {
       "notice_id": "OP00464964",
       "project_id": "P179867",
