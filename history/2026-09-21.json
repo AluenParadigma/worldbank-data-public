@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-09-21T13:29:19Z",
+  "fechaExtraccion": "2026-09-21T15:04:15Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31208,
       "records_downloaded": 31208,
       "pages": 313,
-      "duplicate_records": 13,
+      "duplicate_records": 11,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33084,
-  "expiredRecords": 31848,
+  "expiredRecords": 31849,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 159,
+  "currentConsultingEnEs": 158,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00469091",
-      "project_id": "P166656",
-      "reference_no": "DN-CS--03",
-      "title": "Supervision of construction and installation of equipment for the Administration Building (TN1); Laboratory center (TN2.1; TN2.2 & TN 2.3) and internal landscape, Center for Experiment and Research",
-      "country": "Viet Nam",
-      "project_name": "Vietnam University Development of VNU-Hanoi, VNU-HCM, and UD",
-      "institution": "University of Danang – ODA Project Management Unit",
-      "publication_date": "16-Sep-2026",
-      "deadline": "2026-09-21T14:00:00Z",
-      "deadline_date_raw": "2026-09-21T00:00:00Z",
-      "deadline_time_raw": "14:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "CQS",
-      "procurement_method_name": "Consultant Qualification  Selection",
-      "notice_text": "<p>To: The World Bank (WB) Task Team,</p><p>The ODA Project Management Unit (PMU) - The University of Da Nang respectfully presents this report and requests the World Bank&rsquo;s review and comments on its proposal regarding the processing plan for Package DN-CS--03: Supervision of packages for Supply and installation of specialized equipment and furniture. This package is selected using the Consultants&rsquo; Qualifications Selection (CQS) method in accordance with the Project&rsquo;s Procurement Plan.</p><p>The Request for Expressions of Interest (REOI) for Package DN-CS--03 was published on the National Procurement Network System on August 25, 2026, under REOI No. IB2600484579, with the initial submission deadline set for 2:00 PM on September 11, 2026. At the closing time, only one (01) consultant submitted an Expression of Interest (EOI). To provide further opportunities for other firms to participate, thereby enhancing competition, fairness, transparency, and economic efficiency in the procurement process, the ODA PMU issued Document No. 276/QLDAODA-T dated September 11, 2026, extending the submission deadline to 2:00 PM on September 21, 2026 (a 10-day extension). This extension has been updated on the National Procurement Network System.</p><p>Package DN-CS--03 is a supervisory consulting service with a broad scope of work that spans multiple specialized fields simultaneously. Consequently, the qualification requirements are comprehensive and specialized, covering various sectors. As a result, the number of interested consultants with relevant experience matching the package&#39;s required scope may be limited. This is an objective characteristic of the consulting market for multi-disciplinary supervision assignments.</p><p>The selection of the supervisory consultant for Packages DN-GO--01, DN-GO--02 and DN-GO--03 is crucial to meeting the schedule for equipment supply, installation, acceptance, disbursement, and the overall progress of the Project. Therefore, we respectfully request the World Bank to review and provide its no-objection to the following proposal: In the event that only one (01) consultant has submitted an EOI by 2:00 PM on September 21, 2026, the ODA Project Management Unit will close the receipt of EOIs, prepare the closing minutes, and proceed to open the submitted EOI at 2:30 PM on the same day.</p><p>We look forward to receiving the World Bank&rsquo;s comments to serve as a basis for implementing the next steps, ensuring the progress of the consulting selection and the overall timeline of the Project.</p><p>We highly appreciate the World Bank&rsquo;s continued cooperation and support.</p><p>Sincerely,</p><p>&nbsp;</p><p><strong>Nguyen Duc Phong</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Director of ODA PMU</p><p>To: The World Bank (WB) Task Team,</p><p>The ODA Project Management Unit (PMU) - The University of Da Nang respectfully presents this report and requests the World Bank&rsquo;s review and comments on its proposal regarding the processing plan for Package DN-CS--03: Supervision of packages for Supply and installation of specialized equipment and furniture. This package is selected using the Consultants&rsquo; Qualifications Selection (CQS) method in accordance with the Project&rsquo;s Procurement Plan.</p><p>The Request for Expressions of Interest (REOI) for Package DN-CS--03 was published on the National Procurement Network System on August 25, 2026, under REOI No. IB2600484579, with the initial submission deadline set for 2:00 PM on September 11, 2026. At the closing time, only one (01) consultant submitted an Expression of Interest (EOI). To provide further opportunities for other firms to participate, thereby enhancing competition, fairness, transparency, and economic efficiency in the procurement process, the ODA PMU issued Document No. 276/QLDAODA-T dated September 11, 2026, extending the submission deadline to 2:00 PM on September 21, 2026 (a 10-day extension). This extension has been updated on the National Procurement Network System.</p><p>Package DN-CS--03 is a supervisory consulting service with a broad scope of work that spans multiple specialized fields simultaneously. Consequently, the qualification requirements are comprehensive and specialized, covering various sectors. As a result, the number of interested consultants with relevant experience matching the package&#39;s required scope may be limited. This is an objective characteristic of the consulting market for multi-disciplinary supervision assignments.</p><p>The selection of the supervisory consultant for Packages DN-GO--01, DN-GO--02 and DN-GO--03 is crucial to meeting the schedule for equipment supply, installation, acceptance, disbursement, and the overall progress of the Project. Therefore, we respectfully request the World Bank to review and provide its no-objection to the following proposal: In the event that only one (01) consultant has submitted an EOI by 2:00 PM on September 21, 2026, the ODA Project Management Unit will close the receipt of EOIs, prepare the closing minutes, and proceed to open the submitted EOI at 2:30 PM on the same day.</p><p>We look forward to receiving the World Bank&rsquo;s comments to serve as a basis for implementing the next steps, ensuring the progress of the consulting selection and the overall timeline of the Project.</p><p>We highly appreciate the World Bank&rsquo;s continued cooperation and support.</p><p>Sincerely,</p><p>&nbsp;</p><p><strong>Nguyen Duc Phong</strong><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Director of ODA PMU</p>",
-      "contact_name": "Nguyen Duc Phong",
-      "contact_email": "ndphong@ac.udn.vn",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00469091"
-    },
     {
       "notice_id": "OP00454959",
       "project_id": "P180361",
