@@ -4,10 +4,9 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "10 8 * * *"
-
-permissions:
-  contents: write
+    - cron: "05 8 * * *"
+    - cron: "25 8 * * *"
+    - cron: "45 8 * * *"
 
 jobs:
   fetch-worldbank:
