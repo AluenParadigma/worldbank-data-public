@@ -8,6 +8,9 @@ on:
     - cron: "25 8 * * *"
     - cron: "45 8 * * *"
 
+permissions:
+  contents: write
+
 jobs:
   fetch-worldbank:
     runs-on: ubuntu-latest
