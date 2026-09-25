@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-09-25T13:56:51Z",
+  "fechaExtraccion": "2026-09-25T14:09:04Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31278,
       "records_downloaded": 31278,
       "pages": 313,
-      "duplicate_records": 11,
+      "duplicate_records": 9,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33162,
-  "expiredRecords": 31905,
+  "expiredRecords": 31906,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 180,
+  "currentConsultingEnEs": 179,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00453992",
-      "project_id": "P181029",
-      "reference_no": "TJ-PMG-EFC-CS-QCBS-07",
-      "title": "Provision of Advisory and Technical Support Services to the Project Management Group under the President of Tajikistan",
-      "country": "Tajikistan",
-      "project_name": "Sustainable Financing for Rogun Hydropower Project",
-      "institution": "Project Management Group for Energy Facilities Construction under the President of the RT",
-      "publication_date": "15-Sep-2026",
-      "deadline": "2026-09-25T14:00:00Z",
-      "deadline_date_raw": "2026-09-25T00:00:00Z",
-      "deadline_time_raw": "14:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "QCBS",
-      "procurement_method_name": "Quality And Cost-Based Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong></p><p><strong>(CONSULTING SERVICES &ndash; FIRMS SELECTION)</strong></p><p>Republic of Tajikistan</p><p>Sustainable Financing for Rogun Hydropower Project (P181029)</p><p>Projects Management Group for Energy Facilities Construction under the President of the Republic of Tajikistan (PMG EFC)</p><p>Grant No.: IDA-E3800</p><p>Assignment Title: Provision of International Advisory and Technical Support Services to the Project Management Group under the President of Tajikistan</p><p>Reference No. (as per Procurement Plan):&nbsp;TJ-PMG-EFC-CS-QCBS-07</p><p>The Republic of Tajikistan has received financing from the World Bank toward the cost of the Sustainable Financing for Rogun Hydropower Project and intends to apply part of the proceeds for consulting services for&nbsp;<em>Provision of International Advisory and Technical Support Services to the Project Management Group under the President of Tajikistan (PMG)</em>.</p><p>The overall objective of this assignment is to provide Project Implementing Agency with high-level technical, managerial, procurement, contract management, civil works, electromechanical, and environmental &amp; social expertise required for effective oversight of the Rogun HPP project during the construction phase, including for the oversight of the Project Management Consultant (PMC), the HSE Supervisor, the Dam Safety Panel of Experts (DSPoE) and the Environmental and Social Panel of Experts (ESPoE) and Contractors.</p><p>The scope of services includes, among others, the following:</p><ol><li>Supporting Project Implementing Agency in the overall technical, managerial, procurement, contractual, and environmental and social oversight of the Project;</li><li>Reviewing reports, deliverables, recommendations, and decisions prepared by the Project Management Consultant and other consultants;</li><li>Advising Project Implementing Agency on technical, contractual, procurement, and E&amp;S matters related to the Project;</li><li>Participating in coordination meetings with the Project Management Consultant, contractors, financiers, and other stakeholders, as required by Project Implementing Agency;</li><li>Supporting Project Implementing Agency in decision-making processes by providing independent professional opinions;</li><li>Contributing to capacity strengthening of Project Implementing Agency through on-the-job support and knowledge transfer.</li></ol><p>Anticipated date for commencement of the Services is April 2027 and the tentative duration of the assignment for the Services is 3 years.</p><p>The detailed Terms of Reference (TOR) for the assignment can be found at the link&nbsp;</p><p>https://drive.google.com/file/d/1aSBkt_BCeH9RthhpzxaFJUq6TdS0b7yK/view?usp=sharing<em>&nbsp;</em></p><p><em>but&nbsp;can be obtained at the address given at the end of this REoI.</em></p><p>The Project Management Group for Energy Facilities Construction under the President of the Republic of Tajikistan (PMG) now invites eligible consulting firms (&ldquo;Consultants&rdquo;) to indicate their interest in providing the Services. Interested Consultants shall provide information demonstrating that they have the required qualifications and relevant experience to perform the Services.</p><p>The shortlisting criteria are:</p><ol><li>Legal status. The Consultant shall be a legally registered entity that has been established and operating for at least the last ten (10) years. A copy of the certificate of incorporation or an equivalent registration document issued by the relevant authority in the country of establishment shall be provided. In the case of a joint venture (JV), this requirement shall apply to each JV member.</li><li>General experience. The Consultant shall have at least fifteen (15) years of experience in providing advisory, owner&rsquo;s-engineer, project-management, construction-supervision, or technical-support services to project implementing agencies or employers responsible for large dam and hydropower projects.</li><li>Specific experience.</li></ol><p>The Consultant shall demonstrate the following experience on large dam or hydropower projects:</p><ol><li>technical-support and/or owner&rsquo;s-engineer services;</li><li>construction-supervision services;</li><li>contract-administration support under FIDIC-based contracts, including claims and variations management; and</li><li>services in i, ii, or iii above on a project financed by the World Bank, AIIB, ADB, EIB, or another Multilateral Development Bank.</li></ol><p>The above experience may be demonstrated through one or more assignments. However, the Consultant shall demonstrate at least one (1) principal assignment for a large dam or hydropower project with an installed capacity of at least 300 MW and a dam height of at least 100 m. The underlying construction-works value of the principal referenced project shall be at least US$300 million.</p><p>For each referenced assignment used to demonstrate any of the above requirements, the Consultant shall provide the name of the assignment, location and country, name of the client, description and scope of the services performed, Consultant&rsquo;s contract value, value of the underlying construction works, duration, years of execution, completion status, and the Consultant&rsquo;s role in the assignment.</p><p>In the case of a JV, the experience of the JV members may be combined. However, the experience of proposed subconsultants, affiliated entities, or individual experts shall not be considered the corporate experience of the Consultant or the JV members.</p><p>4. Capacity to deliver. The Consultant shall submit a detailed organogram demonstrating the managerial and organizational capability to carry out the assignment, and shall provide evidence of a quality management system (ISO 9001 or equivalent).</p><p>Key Experts will not be evaluated at the shortlisting stage.</p><p>The attention of interested Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; (Seventh Edition, September 2025) (Procurement Regulations) setting forth the World Bank&rsquo;s policy on conflict of interest.</p><p>Consultants may associate with other firms to enhance their qualifications but shall indicate clearly in the Expression of Interest whether the association is in the form of a joint venture and/or a sub-consultancy. In the case of a joint venture, all the partners in the joint venture shall be jointly and severally liable for the entire contract, if selected.</p><p>A Consultant will be selected in accordance with the Quality and Cost-Based Selection (QCBS) method set out in the Procurement Regulations.</p><p>Further information can be obtained at the address below during office hours 09:00 to 17:00.</p><p>Expressions of interest must be delivered in a written form in English to the address below (in person, or by mail) September 25, 2026, by 14:00 pm, Dushanbe time.</p><p>Attn: Mr. Pulod Muhiddiniyon</p><p>Director</p><p>Projects Management Group for Energy Facilities Construction</p><p>under the President of the Republic of Tajikistan</p><p>5/1 Shamsi str., 6 th floor, 734064, Dushanbe</p><p>E-mail: admin@pmgrogun.com cc:&nbsp;a.sarvinoz@pmgrogun.com</p>",
-      "contact_name": "Pulod Muhiddiniyon",
-      "contact_email": "admin@pmgrogun.com",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00453992"
-    },
     {
       "notice_id": "OP00468332",
       "project_id": "P180334",
