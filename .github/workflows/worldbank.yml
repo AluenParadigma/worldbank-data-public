@@ -25,6 +25,10 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Sync with origin
+        run: |
+          git pull --rebase origin main
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -418,13 +422,5 @@ jobs:
           fi
 
           git commit -m "Update World Bank procurement data $(date -u '+%Y-%m-%d %H:%M UTC')"
-
-          echo ""
-          echo "Synchronizing with origin/main before push..."
-
-          git pull --rebase origin main
-
-          echo ""
-          echo "Pushing World Bank snapshot..."
 
           git push origin main
