@@ -1,14 +1,14 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "extracted_at": "2026-09-29T14:55:23Z",
+  "extracted_at": "2026-09-29T15:04:47Z",
   "language_controls": [
     {
       "language_filter": "English",
       "api_total": 31293,
       "records_downloaded": 31293,
       "pages": 313,
-      "duplicate_records": 9,
+      "duplicate_records": 11,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,6 +41,6 @@
   "csv_records": 167,
   "coverage_complete": true,
   "validation_status": "OK",
-  "sha256_json": "aaaf83be08d226aa8cf9b0bfb831281d87749c3880d6a9b3638adf85230081c2",
+  "sha256_json": "4719a8d8ddc478ec99f1b8870bacc8bd0b50348a60d3ed4cb0533fd142aa49f8",
   "sha256_csv": "f9942adb9a78c65ec74a8127260423cde95572699db9557eb83483dae1200edb"
 }
