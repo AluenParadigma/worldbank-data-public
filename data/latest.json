@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-04T13:52:50Z",
+  "fechaExtraccion": "2026-10-04T14:09:20Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31332,
       "records_downloaded": 31332,
       "pages": 314,
-      "duplicate_records": 11,
+      "duplicate_records": 15,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33220,
-  "expiredRecords": 31981,
+  "expiredRecords": 31982,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 162,
+  "currentConsultingEnEs": 161,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00468131",
-      "project_id": "P172548",
-      "reference_no": "EG-EEAA-553218-CS-QCBS",
-      "title": "Development of an Integrated Management Information System (MIS) to Support Enhanced Monitoring and Updating of E-Waste Data and Utilization of the UPOPS Tool Kit and E-Waste Calculator for E-Waste Processing",
-      "country": "Egypt, Arab Republic of",
-      "project_name": "Greater Cairo Air Pollution Management and Climate Change Project",
-      "institution": "Egyptian Environmental Affairs Agency",
-      "publication_date": "10-Sep-2026",
-      "deadline": "2026-10-04T14:00:00Z",
-      "deadline_date_raw": "2026-10-04T00:00:00Z",
-      "deadline_time_raw": "14:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "QCBS",
-      "procurement_method_name": "Quality And Cost-Based Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong><br /><strong>(Consulting Services &ndash; Firms Selection)</strong></p><p><strong>Greater Cairo Air Pollution Management and Climate Change (GCCC) Project</strong></p><p><strong>Arab Republic of Egypt</strong><br /><strong>Ref. No.:</strong>&nbsp;EG-EEAA-553218-CS-QCBS</p><p>&nbsp;</p><p><strong>Greater Cairo Air Pollution Management and Climate Change (GCCC) Project under</strong></p><p>the Ministry of Local Development and Environment invites eligible consulting firms to express their interest in developing an Integrated Management Information System (MIS) to Support Enhanced Monitoring and Updating of E-Waste Data and Utilization of the uPOPs Tool Kit and E-Waste Calculator for E-Waste Processing</p><p><strong>Expected Duration:</strong>&nbsp;21 months (15 months for development + 6 months for maintenance).</p><p><strong>Key Shortlisting Criteria: </strong>Proven experience in developing environmental/waste management MIS, government platform integration, projects financed by international partners (World Bank, GEF), and knowledge of Stockholm/Basel Conventions</p><p><strong>Selection Process:</strong></p><p>The Consulting Firm will be selected in accordance with the World Bank&rsquo;s Procurement Regulations for IPF Borrowers. The selection method will be Quality- and Cost-Based Selection (QCBS) using a Lump-Sum Contract.</p><p><strong>Submission</strong><strong>: </strong>Expressions of Interest must be submitted in one (1) original and two (2) copies, together with one (1) soft copy on a USB flash drive, in a written form and delivered in person to the address below, <strong>no later than Sunday, October 4, 2026,</strong> at <strong>14:00</strong> (Cairo time).</p><p><strong>Electronic submission of Expressions of Interest will not be permitted.</strong></p><p><strong>Greater Cairo Air Pollution Management and Climate Change (GCCC) Project</strong></p><p><strong>Attn:</strong>Dr. Mohamed Hassan, Project Coordinator</p><p>and Ms. Nahla Abouzeid, Project Procurement Consultant</p><p><strong>Address: 15 S El Tawfik Building, El Fustat El Gedida, </strong></p><p><strong>Old Cairo,</strong> <strong>5th floor, Cairo &ndash; Egypt</strong></p><p><strong>Tel:</strong> &nbsp;+20 1103311151</p><p><strong>E-mail:</strong> &nbsp;mohamed.hassan@gccceg.com</p><p>&nbsp;nahla.zeid@gccceg.com</p><p>Kindly contact the project team for the detailed Terms of Reference &ldquo;TOR&rdquo; including the scope of work and deliverables for the assignment.</p>",
-      "contact_name": "Mohamed Hassan",
-      "contact_email": "mohamed.hassan@gccceg.com",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00468131"
-    },
     {
       "notice_id": "OP00467989",
       "project_id": "P176549",
