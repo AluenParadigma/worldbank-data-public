@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-06T12:22:42Z",
+  "fechaExtraccion": "2026-10-06T14:56:31Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31350,
       "records_downloaded": 31350,
       "pages": 314,
-      "duplicate_records": 15,
+      "duplicate_records": 16,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33238,
-  "expiredRecords": 32007,
+  "expiredRecords": 32008,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 154,
+  "currentConsultingEnEs": 153,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00467969",
-      "project_id": "P166991",
-      "reference_no": "PG-DOW-555092-CS-QCBS",
-      "title": "Consultant Firm to undertake detailed assessment and design of bridges on Ramu Highway",
-      "country": "Papua New Guinea",
-      "project_name": "Papua New Guinea Resilient Transport Project",
-      "institution": "Department of Works",
-      "publication_date": "15-Sep-2026",
-      "deadline": "2026-10-06T14:00:00Z",
-      "deadline_date_raw": "2026-10-06T00:00:00Z",
-      "deadline_time_raw": "14:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "QCBS",
-      "procurement_method_name": "Quality And Cost-Based Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSION OF INTEREST</strong></p><p><strong>(CONSULTING SERVICES &ndash; FIRMS SELECTION)</strong></p><p><strong>Country: </strong>Independent State of Papua New Guinea (PNG)</p><p><strong>Name of Project: </strong>PNG Resilient Transport Project (RTP)</p><p><strong>Contract Title: </strong>Firm for undertaking Bridge Investigation, Design and Contract Documentation &ndash; Ramu Highway &ndash; Morobe and Madang Provinces</p><p><strong>Credit No.: </strong>Finance/Loan/Grant Nos.: 7091PG / 9379PG</p><p><strong>DoWH Reference Number: </strong>PG-DOW-555092-CS-QCBS</p><p><strong>NPC Reference Number: </strong>NPC/2026-39</p><ol><li>The Independent State of Papua New Guinea has received financing from the World Bank towards the implementation of a PNG Resilient Transport Project (RTP) and intends to apply part of the proceeds for consulting services. Department of Works and Highways (DoWH) is the Implementing Agency (IA) and has established a Project Implementing Unit (PIU), which is responsible for the day-to-day implementation of the Project.</li><li>The DoWH now invites eligible consulting firms (&ldquo;Consultants&rdquo;) to indicate their interest in providing the Services. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services.</li><li>Details regarding the assignment, duration, tasks, and responsibilities etc. are mentioned in the detailed EoI and ToR which can be obtained from the undersigned.</li><li>The shortlisting criteria are:<ol><li>Core business (feasibility studies, surveys etc.) with at least seven years in business;</li><li>Experience in similar projects of comparable size, complexity and technical specialty in the required area of Bridges (feasibility studies, detailed engineering designs, environmental and social assessments, preparation of technical specifications, BOQ, drafting bid documents etc.)</li><li>Financial Soundness of the Firm (minimum average annual turnover of US$ 5 million)</li><li>Technical and managerial organization of the firm.</li><li>Familiarity with business operations in Papua New Guinea (desirable).</li></ol></li></ol><p><strong>Note:</strong></p><ol><li><ol><li><ol><li>Key Experts will not be evaluated at the shortlisting stage.</li><li>When providing information relating to (b), it shall be made clear whether the experience of the firm was in the capacity of a principal firm (lead partner) or as an associated firm (sub-consultant/JV partner) with detail regarding the scope of the services.</li><li>Firms submitting their EoI response as Joint Venture (JV) will be evaluated individually for all of the above criteria, while only lead firm will be evaluated in case of a submission with sub-consultancy or consortium.</li></ol></li></ol></li><li>The attention of interested Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; 7th Edition (September 2025, effective 1 September, 2025), setting forth the World Bank&rsquo;s policy on conflict of interest.</li><li>Consultants may associate with other firms to enhance their qualifications, but should indicate clearly whether the association is in the form of a joint venture and/or a sub-consultancy. In the case of a joint venture, all the partners in the joint venture shall be jointly and severally liable for the entire contract, if selected.</li><li>A Consultant will be selected in accordance with the Quality and Cost Based Selection (QCBS) method as set out in Section VII, paragraph 7.3 of World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; 7th Edition (September 2025, effective 1 September, 2025), setting forth the World Bank&rsquo;s policy on conflict of interest.</li><li>The EoI must be submitted on or before 6 October, 2026 before &ldquo;1400 Hrs. PNG local time (UTC +10)&rdquo; at the following email addresses. (Late Submission Will Not Be Considered).</li></ol><p><strong>The Chief Executive Officer</strong></p><p><strong>National Procurement Commission</strong></p><p>Hela 1, Level 2, Sir John Guise Drive, WAIGANI.</p><p>P.O Box 6457, BOROKO, National Capital District.</p><p><strong>Emails:</strong></p><p>hane.hekwa@npc.gov.pg</p><p>geoffrey.kinibo@npc.gov.pg</p><p>gverave@npc.gov.pg</p><p><strong>Cc: </strong>windi.mathew@gmail.com / mwindi@works.gov.pg</p>",
-      "contact_name": "Mathew Windi",
-      "contact_email": "mwindi@works.gov.pg",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00467969"
-    },
     {
       "notice_id": "OP00467466",
       "project_id": "P174639",
