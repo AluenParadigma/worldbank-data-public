@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-09T14:59:59Z",
+  "fechaExtraccion": "2026-10-09T15:09:34Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31385,
       "records_downloaded": 31385,
       "pages": 314,
-      "duplicate_records": 20,
+      "duplicate_records": 9,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33276,
-  "expiredRecords": 32042,
+  "expiredRecords": 32043,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 157,
+  "currentConsultingEnEs": 156,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00471568",
-      "project_id": "P180266",
-      "reference_no": "MU-AML-567481-CS-INDV",
-      "title": "Recruitment of Procurement Assistant",
-      "country": "Mauritius",
-      "project_name": "Rodrigues Airport Project",
-      "institution": "Airports of Mauritius Ltd",
-      "publication_date": "28-Sep-2026",
-      "deadline": "2026-10-09T15:00:00Z",
-      "deadline_date_raw": "2026-10-09T00:00:00Z",
-      "deadline_time_raw": "15:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST (REOI)</strong></p><p><strong>CONSULTING SERVICES &ndash; INDIVIDUAL CONSULTANT SELECTION</strong><br />&nbsp;</p><p>Country: &ndash; Republic of Mauritius</p><p>Project: Rodrigues Airport Project, New Runway and Associated Facilities Project (P180266)</p><p>Loan No.: IBRD-95910</p><p>Assignment Title: Procurement Assistant</p><p>Reference No.: MU-AML-567481-CS-INDV</p><p><br /><strong>1. BACKGROUND</strong></p><p>The Ministry of Finance has received financing from the World Bank and a grant from the European Union toward the cost of the Construction of a New Runway and Other facilities for Plaine Corail Airport, Rodrigues and intends to apply part of the proceeds towards recruitment of Individual Consultancy for Procurement Assistant.</p><p><strong>2. OBJECTIVE OF THE ASSIGNMENT&nbsp; </strong></p><p><strong>The Procurement Assistant is to support all activities and procedures related to the procurement of goods, works, consulting services and non-consulting services under the specified threshold and act as an understudy to the Procurement Specialists and Sr. Procurement Specialist, providing support in procurement operations, ensuring compliance with policies and timely delivery of procurement activities. The Assistant will progressively assume more responsibility under supervision to support the project&rsquo;s procurement needs</strong></p><p><strong>3.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BRIEF SCOPE OF THE ASSIGNMENT</strong></p><ul><li>The Procurement Assistant will handle procurement activities under supervision, of the Procurement Specialist.</li><li>The Assistant will support and assist the Procurement Specialist with procurement activities and procedures as described in the Project Operations Manual (POM) and the World Bank Procurement Regulations.</li><li>Assist in the preparation and publication of procurement notices, bidding documents, evaluation reports, and contract documentation under supervision.</li><li>Prepare and update the Project&rsquo;s Annual Procurement Plan using STEP.</li><li>Assist with organizing bid opening sessions, evaluation meetings, and negotiation documentation.</li><li>Prepare the minutes of the Evaluation Committee meetings.</li><li>Maintain updated procurement records, databases, and filing systems according to project and donor requirements.</li><li>Assist in updating the STEP system with procurement activities and contract management information.</li><li>Maintain and organize procurement documentation and ensure records are complete and audit ready.</li><li>Help ensure procurement activities comply with World Bank, Airports of Mauritius Co. Ltd and Government of Mauritius policies and regulations.</li></ul><p><strong>4. INVITATION FOR EXPRESSIONS OF INTEREST</strong></p><p>The Airports of Mauritius Co. Ltd now invites eligible candidates (&ldquo;Consultants&rdquo;) to indicate their interest in providing the Services. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services. The shortlisting criteria are:</p><p><strong>5.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong><strong>QUALIFICATIONS AND EXPERIENCE</strong><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </strong></p><p>The consultant should have the following minimum qualifications and experience:</p><p><strong>Qualifications</strong></p><ul><li>A bachelor&rsquo;s degree (or higher) in Business Administration, Public Administration, Procurement, supply chain management, Project Management, Engineering, Economics, Law, or a related field would be considered an asset.</li><li>A diploma or certificate in Procurement or Contract Management is an asset.</li></ul><p><strong>Experience</strong></p><ul><li>At least 2 (two) years of experience in procurement as a Procurement Assistant.</li><li>Familiarity with World Bank or other international financial institution procurement policies and procedures is preferred.</li><li>Experience with e-procurement systems, such as the World Bank&rsquo;s STEP platform, will be an advantage.</li><li>Work experience in similar projects financed by international multilateral institutions in a similar position, will be a definite advantage.</li><li>Experience in the procurement for building/civil projects, including bid documents, opening and evaluating bidders&#39; proposals, negotiating and managing contracts</li></ul><p>The detailed Terms of Reference (TOR) for the assignment can be obtained at the following link: https://aml.mru.aero/index.php/business/rap</p><p>The attention of interested individual Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; dated July 2016, revised November 2017, August 2018, November, 2020, and September, 2023, setting forth the World Bank&rsquo;s policy on conflict of interest.</p><p><strong>6.0 CONFLICT OF INTEREST</strong></p><p>Please refer to paragraph 3.17 of the Procurement Regulations on conflict of interest related to this assignment which is available on the Bank&rsquo;s website athttp://projects-beta.worldbank.org/en/projects- operations/products-and-services/brief/procurement-new-framework.&nbsp;&nbsp;&nbsp;&nbsp;</p><p>A Consultant will be selected in accordance with the Individual Consultant Selection Method set out in the Procurement Regulations.</p><p>Further information can be obtained at the address below during office hours 8:00 am to 5:00 pm on Mondays to Fridays.</p><p><strong>7.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DURATION OF THE ASSIGNMENT </strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p><p>The contract will be for an initial period of 24 months with the possibility of renewal based on satisfactory performance and project continuation. Annual performance assessment will be conducted for this position to review the performance level of the Procurement Assistant. The contract can be renewed subject to satisfactory performance and availability of funds.</p><p><strong>8.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SUBMISSION OF EXPRESSIONS OF INTEREST</strong></p><p>Expressions of interest must be delivered in a written form to the address below by e-mail by <strong>09th October 2026</strong> at <strong>15.00hrs</strong> on the following email address rap.recruitment@aml.aero&nbsp; &nbsp;including the following documents:</p><p>&bull;&nbsp;&nbsp; A signed Expression of Interest / application letter;</p><p>&bull;&nbsp;&nbsp; A Curriculum Vitae (CV) in the World Bank format or other acceptable professional CV format;</p><p>&bull;&nbsp;&nbsp; Copies of diplomas, certificates, and other documents demonstrating qualifications;</p><p>&bull;&nbsp;&nbsp; Documents demonstrating relevant experience in procurement, project administration, contract administration, or similar assignments</p><p>Chairman, PIU Tender Committee</p><p>Airports of Mauritius Co. Ltd (AML)</p><p>Email: &nbsp;rap.recruitment@aml.aero</p><p>&nbsp;</p>",
-      "contact_name": "Gail Kye",
-      "contact_email": "gail.leongkye@arl.aero",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00471568"
-    },
     {
       "notice_id": "OP00470639",
       "project_id": "P178176",
