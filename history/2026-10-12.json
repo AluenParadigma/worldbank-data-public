@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-12T17:39:10Z",
+  "fechaExtraccion": "2026-10-12T18:02:46Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31398,
       "records_downloaded": 31398,
       "pages": 314,
-      "duplicate_records": 11,
+      "duplicate_records": 7,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33292,
-  "expiredRecords": 32062,
+  "expiredRecords": 32063,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 153,
+  "currentConsultingEnEs": 152,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00470195",
-      "project_id": "P516198",
-      "reference_no": "AZ-ASWRA-033088-CS-QCBS",
-      "title": "Consulting Services for: Feasibility Study for the Rehabilitation and Non-Revenue Water Reduction of the Baku Water System and Procurement support",
-      "country": "Azerbaijan",
-      "project_name": "Azerbaijan Climate Resilient Efficient Water Services (CREWS) Project",
-      "institution": "Azerbaijan State Water Resources Agency",
-      "publication_date": "24-Sep-2026",
-      "deadline": "2026-10-12T18:00:00Z",
-      "deadline_date_raw": "2026-10-12T00:00:00Z",
-      "deadline_time_raw": "18:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "QCBS",
-      "procurement_method_name": "Quality And Cost-Based Selection",
-      "notice_text": "<p>&nbsp;</p><p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong></p><p><strong>(CONSULTING SERVICES &ndash; FIRMS SELECTION)</strong></p><p>&nbsp;</p><p>&nbsp;</p><p><strong>The Republic of Azerbaijan </strong></p><p><strong>Preparation Grant for Climate Resilient Efficient Water Supply (CREWS) Project</strong></p><p>Grant No.: TF0D1883</p><p>&nbsp;</p><p><strong>Assignment Title: Consulting Services for the Feasibility Study for the Rehabilitation and Non-Revenue Water Reduction of the Baku Water System and Procurement Support</strong></p><p><strong>Reference No.:</strong> AZ-ASWRA-033088-CS-QCBS</p><p>&nbsp;</p><p>Azerbaijan State Water Resources Agency has received a grant from the World Bank for the preparation of the proposed Climate Resilient Efficient Water Supply (CREWS) Project and intends to apply part of the proceeds for consulting services.</p><p>&nbsp;</p><p>The consulting services (&ldquo;the Services&rdquo;) include Feasibility Study for the Rehabilitation and Non-Revenue Water Reduction of the Baku Water System and Procurement Support, with<em>&nbsp;</em>10 months of<em>&nbsp;</em>implementation period (expected to start about January 2027).</p><p>&nbsp;</p><p>The detailed Terms of Reference (TOR) for the assignment can be found at the following link:</p><p><em>https://docs.google.com/document/d/13mCM6iBotMCIc05JxqOPCLr0s1O-CCIg/edit</em></p><p>&nbsp;</p><p>Azerbaijan State Water Resources Agency now invites eligible consulting firms (&ldquo;Consultants&rdquo;) to indicate their interest in providing the Services. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services. The shortlisting criteria are:</p><ol><li>experience in water supply system management in urban areas, including experience in reducing Non-Revenue Water for physical and apparent losses.</li><li>experience in carrying out feasibility studies, including investment planning and assessing economic and financial viability of investments.</li><li>Experience in supporting transactions for large contracts, including market analysis, preparation of pre-qualification documents, preparation of bidding documents, and providing support on contract negotiations.&nbsp;Experience in preparing Performance Based Contract documents is preferred.</li><li>Demonstrated institutional capability to manage and deliver complex multidisciplinary consulting assignments, including experience coordinating technical, financial, operational, and procurement-related aspects.</li><li>Following additional criteria will be considered for shortlisting:</li></ol><ul><li>Core business and years in business;</li><li>Technical and managerial capability of the firm.</li></ul><p>&nbsp;</p><p>Key Experts will not be evaluated at the shortlisting stage.</p><p>&nbsp;</p><p>The Shortlist shall include not fewer than five (5) and not more than eight (8) eligible firms.</p><p>&nbsp;</p><p>The attention of interested Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; September 2025 (&ldquo;Procurement Regulations&rdquo;), setting forth the World Bank&rsquo;s policy on conflict of interest.&nbsp;</p><p>&nbsp;</p><p>Consultants may associate with other firms to enhance their qualifications, but should indicate clearly whether the association is in the form of a joint venture and/or a sub-consultancy. In the case of a joint venture, all the partners in the joint venture shall be jointly and severally liable for the entire contract, if selected.</p><p>&nbsp;</p><p>A Consultant will be selected in accordance with the Quality and Cost-based Selection method set out in the Procurement Regulations and to be specifically set out in the Request for Proposals.</p><p>&nbsp;</p><p>Further information can be obtained at the address below during office hours (Monday to Friday 09:00 to 18:00 hours).</p><p>&nbsp;</p><p>Expressions of interest must be delivered in a written form to the address below (in person or by e-mail) by 13 October, 2026.</p><p>&nbsp;</p><p>Consultants are strongly encouraged to limit their Expression of Interest to 30 pages. Company brochures may be attached as an Annex and will not count toward the 30-page limit.</p><p>&nbsp;</p><p>Azerbaijan State Water Resources Agency</p><p>Attn: Murad Abishev</p><p>Title: Head of Planning, Supply and Procurement Analysis Department/Head of Project Implementation Unit (PIU)</p><p>Moscow ave. 67</p><p>AZ1000, Baku, Azerbaijan</p><p>Tel: (+994 12) 525 02 25 (ext. 1033)</p><p>E-mail: <em>Murad.Abishev@adsea.gov.az; Mehdi.Jafarov@adsea.gov.az</em></p>",
-      "contact_name": "Murad  Abishev",
-      "contact_email": "Murad.Abishev@adsea.gov.az",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00470195"
-    },
     {
       "notice_id": "OP00472037",
       "project_id": "P515153",
