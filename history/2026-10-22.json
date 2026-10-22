@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-22T13:52:31Z",
+  "fechaExtraccion": "2026-10-22T14:06:23Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31539,
       "records_downloaded": 31539,
       "pages": 316,
-      "duplicate_records": 9,
+      "duplicate_records": 11,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33441,
-  "expiredRecords": 32165,
+  "expiredRecords": 32166,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 199,
+  "currentConsultingEnEs": 198,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00474029",
-      "project_id": "P177816",
-      "reference_no": "KM-FSRP KM-502295-CS-INDV",
-      "title": "Recrutement d'un Consultant National pour l'élaboration d'une étude technique (APS&APD) et assurer la mission du controle et surveillance des travaux du Magasin du Stockage des provendes vollailes.",
-      "country": "Eastern and Southern Africa",
-      "project_name": "Food Systems Resilience Program for Eastern and Southern Africa (Phase 3) FSRP",
-      "institution": "FSRP KM Management Unit",
-      "publication_date": "08-Oct-2026",
-      "deadline": "2026-10-22T14:00:00Z",
-      "deadline_date_raw": "2026-10-22T00:00:00Z",
-      "deadline_time_raw": "14:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<u>AVIS A MANIFESTATION D&rsquo;INTERET</u></strong></p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;N&deg; 2026/004/MAPA/FSRP-KM/CSI</strong></p><p><strong>Objet&nbsp;:</strong> <strong>RECRUTEMENT D&rsquo;UN CONSULTANT NATIONAL POUR LE SUIVI ET CONTR&Ocirc;LE DES TRAVAUX DE CONSTRUCTION D&#39;UN MAGASIN DE STOCKAGE AVEC BUREAUX VITRES, STRUCTURE METALLIQUE ET BATIMENTS ANNEXES EN MA&Ccedil;ONNERIE RESTAURANT &mdash; VESTIAIRES &mdash; DOUCHES</strong></p><p>Le Gouvernement de l&rsquo;Union des Comores, &agrave; travers le Minist&egrave;re de l&rsquo;Agriculture, de la P&ecirc;che et de l&rsquo;Artisanat, a mis en &oelig;uvre le Projet de R&eacute;silience des Syst&egrave;mes Alimentaires aux Comores (FSRP-KM) financ&eacute; par la Banque Mondiale.</p><p>Dans le cadre de la mise en &oelig;uvre des activit&eacute;s du Projet de R&eacute;silience des Syst&egrave;mes Alimentaires aux Comores (FSRP-KM), la Coordination nationale lance le recrutement d&rsquo;un Consultant national charg&eacute; du suivi et du contr&ocirc;le des travaux de Construction d&rsquo;un Magasin de Stockage des provendes avec Bureaux Vitr&eacute;s structure m&eacute;tallique, et b&acirc;timents annexes en ma&ccedil;onnerie Restaurant-Vestiaires -Douches.</p><p>Pour avoir plus d&rsquo;informations, Veuillez t&eacute;l&eacute;charger les termes des R&eacute;f&eacute;rences sur notre site internet &agrave; partir de ce lien&nbsp;: https://fsrp-km.org/appel-doffre/</p><p>La date limite de soumission des Manifestations d&rsquo;int&eacute;r&ecirc;ts est fix&eacute;e au <strong>22 / 10/ 2026 &agrave; 14h00</strong>.</p><p>&nbsp;</p><p>Pour postuler, veuillez d&eacute;poser votre Manifestations d&rsquo;int&eacute;r&ecirc;ts physiquement au si&egrave;ge du FSRP_KM, sis au Minist&egrave;re de l&rsquo;Agriculture &agrave; Md&eacute; &ndash; Ex Cefader ou par voie &eacute;lectronique &agrave; l&rsquo;adresse email du Projet&nbsp;: <strong>projetfsrp@gmail.com</strong>.</p><p>&nbsp;</p><p><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Lanc&eacute;, le 08 Octobre 2026</strong></p><p>&nbsp;</p>",
-      "contact_name": "Ali Mgomri",
-      "contact_email": "alimgomri26@gmail.com",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00474029"
-    },
     {
       "notice_id": "OP00473346",
       "project_id": "P166805",
