@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-10-28T14:58:50Z",
+  "fechaExtraccion": "2026-10-28T15:13:29Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33499,
-  "expiredRecords": 32241,
+  "expiredRecords": 32242,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 181,
+  "currentConsultingEnEs": 180,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00476711",
-      "project_id": "P178237",
-      "reference_no": "FM-NORMA-570157-CS-INDV",
-      "title": "Contract Advisor",
-      "country": "Micronesia, Federated States of",
-      "project_name": "Pacific Islands Regional Oceanscape Program - Second Phase for Economic Resilience: Federated States",
-      "institution": "National Oceanic Resource Management Authority",
-      "publication_date": "23-Oct-2026",
-      "deadline": "2026-10-28T15:00:00Z",
-      "deadline_date_raw": "2026-10-28T00:00:00Z",
-      "deadline_time_raw": "15:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong></p><p><strong>&nbsp;(INDIVIDUAL CONSULTING SERVICES)</strong></p><p><strong>(Open/International)</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>Country:</strong> Federated States of Micronesia</p><p><strong>Project: Pacific Islands Regional Oceanscape Program &ndash; Second Phase for Economic Resilience (PROPER)</strong></p><p><strong>Grant No.: E371-FM</strong></p><p><strong>Assignment Title: Contract Management Advisor</strong></p><p><strong>Reference No.: FM-NORMA-570157-CS-INDV</strong></p><p>&nbsp;</p><p>The National Government of the Federated States of Micronesia (FSM) has applied for financing from the World Bank toward the cost of the Pacific Islands Regional Oceanscape Program &ndash; Second Phase for Economic Resilience (PROPER) and intends to apply part of the proceeds for consulting services.</p><p>The consulting services (&ldquo;the Services&rdquo;) include providing dedicated contract management and administration expertise for the planning, mobilization, implementation, monitoring, change control, claims management, payment verification support, completion and close-out of PROPER Project contracts. The Consultant will provide advisory and administrative support throughout the contract lifecycle, working closely with the PROPER PIU, CIU Procurement and Financial Management teams, technical specialists, supervision consultants, designated legal advisers and relevant implementing agencies, while maintaining clear separation between contract administration, procurement decision-making, technical certification, legal advice and the contractual responsibilities of contractors and consultants.</p><p>The FSM National Oceanic Resource Management Authority (NORMA) now invites eligible individuals (&ldquo;Consultants&rdquo;) to indicate their interest in providing the Services. Firm&rsquo;s staff may express interest through the employing firm for the assignment and, under such situation, only the experience and qualifications of the individual applicant shall be considered in the selection process. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services <em>(attach curriculum vitae with description of experience in similar assignments, similar conditions, and copies of degree(s) and relevant certificates)</em>.</p><p>The detailed Terms of Reference (TOR) for the assignment can be found on the DOFA website at dofa.gov.fm or at the NORMA website at norma.fm. The assignment is for twelve (12) months, with an estimated level of effort of up to eighty-seven (87) person-days and includes one (1) agreed in-country mission to FSM of up to fifteen (15) person-days. The expected start date is November 2026 or earlier.</p><p>The criteria for selecting the Consultant are:</p><p><strong>Mandatory Qualifications</strong><em>:</em></p><ul><li>Bachelor&rsquo;s degree in law, business administration, engineering, quantity surveying, construction management, procurement, project management or another field relevant to contract administration. A postgraduate qualification or recognized contract/project management certification is an advantage.</li><li>At least seven (7) years of relevant professional experience in contract administration or contract management, including demonstrated responsibility for monitoring contract performance, variations/amendments, claims, payments, records and close-out.</li><li>Demonstrated experience drafting, reviewing, and interpreting complex contractual documents, as well as supporting contract negotiations and change control, within a professional English-speaking business environment.&nbsp;</li><li>Demonstrated experience administering consulting services, goods and works contracts, including works/infrastructure contracts and experience coordinating with supervision consultants.</li></ul><p>&nbsp;</p><p><strong>Desirable Qualifications:</strong></p><ul><li>Experience with infrastructure contracts.</li><li>Experience with World Bank-financed or other multilateral development bank/donor-funded projects.</li><li>Experience working in small island developing states, Pacific Island countries or comparable remote environments.</li></ul><p>The attention of interested Consultants is drawn to paragraphs 3.14, 3.16 and 3.17 of the World Bank&rsquo;s Procurement Regulations for IPF Borrowers, Seventh Edition, September 2025 (&ldquo;the Regulations&rdquo;), setting forth the World Bank&rsquo;s policy on conflict of interest.</p><p>Further information can be obtained at the address below during office hours 0800 to 1700 hours Pohnpei local time.</p><p>Expressions of interest must be delivered in a written form to the address below (in person, by mail, or preferably by e-mail) by <strong>October 28th, 2026, 3:00 Pm Pohnpei Local Time</strong>.</p><p>&nbsp;</p><p>Ms. Camille Inatio</p><p>Executive Director</p><p>National Oceanic Resource Management Authority</p><p>Attn: Mr. Okean Ehmes, PROPER Project</p><p>PO Box PS 122</p><p>Pohnpei, FM 96941</p><p>Federated States of Micronesia</p><p>Email: proper.procurement@norma.fm</p>",
-      "contact_name": "Camille  Inatio",
-      "contact_email": "camille.inatio@norma.fm",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00476711"
-    },
     {
       "notice_id": "OP00474359",
       "project_id": "P178720",
