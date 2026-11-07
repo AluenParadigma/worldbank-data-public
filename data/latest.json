@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-11-07T14:58:30Z",
+  "fechaExtraccion": "2026-11-07T15:08:03Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31697,
       "records_downloaded": 31697,
       "pages": 317,
-      "duplicate_records": 16,
+      "duplicate_records": 7,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33619,
-  "expiredRecords": 32362,
+  "expiredRecords": 32363,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 180,
+  "currentConsultingEnEs": 179,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00089695",
-      "project_id": "P151439",
-      "reference_no": "EC-EMAPAG-CS-LCS-001",
-      "title": "Auditoría a los Estados Financieros Especiales por los ejercicios terminados al 31 de diciembre del 2019, 2020, 2021, 2022 y 2023",
-      "country": "Ecuador",
-      "project_name": "EC Guayaquil Wastewater Management Project",
-      "institution": "Executing Unit for Multilateral Projects",
-      "publication_date": "06-Nov-2026",
-      "deadline": "2026-11-07T15:00:00Z",
-      "deadline_date_raw": "2026-11-07T00:00:00Z",
-      "deadline_time_raw": "15:00",
-      "language": "Spanish; Castilian",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "LCS",
-      "procurement_method_name": "Least Cost Selection",
-      "notice_text": "<p><strong>INVITACI&Oacute;N A PRESENTAR EXPRESIONES DE INTERES<br />(SERVICIOS DE CONSULTORIA-SELECCI&Oacute;N DE FIRMAS)<br />25 de mayo de 2020</strong></p><p><br />ECUADOR<br />PROYECTO UNIVERSALIZACI&Oacute;N DEL ALCANTARILLADO SANITARIO Y TRATAMIENTO DE AGUAS RESIDUALES DEL SISTEMA SUR DE LA CIUDAD DE GUAYAQUIL PLANTA DE TRATAMIENTO DE AGUAS RESIDUALES &ldquo;LAS ESCLUSAS&rdquo; Y &ldquo;LOS MERINOS&rdquo; Y SUS COMPONENTES COMPLEMENTARIOS.<br />PROYECTO N&deg; P151439</p><p><br />Titulo Asignado: AUDITORIA A LOS ESTADOS FINANCIEROS ESPECIALES POR LOS EJERCICIOS TERMINADOS AL 31 DE DICIEMBRE DEL 2019.</p><p><br />Referencia No. EC-EMAPAG-CS-LCS-001</p><p><br />La Empresa Municipal de Agua Potable y Alcantarillado de Guayaquil, EP EMAPAG EP ha solicitado financiamiento del Banco Mundial para el Proyecto Universalizaci&oacute;n del Alcantarillado Sanitario y Tratamiento de Aguas Residuales del Sistema Sur de la ciudad de Guayaquil Planta de Tratamiento de Aguas Residuales Las Esclusas y sus Componentes Complementarios, y se propone utilizar una parte de los fondos para la consultor&iacute;a motivo de la presente invitaci&oacute;n.</p><p><br />Los servicios de consultor&iacute;a (&ldquo;los servicios&rdquo;) comprenden: AUDITORIA A LOS ESTADOS FINANCIEROS DE LA EMPRESA MUNICIPAL DE AGUA POTABLE Y ALCANTARILLADO DE GUAYAQUIL, EP EMAPAG EP POR LOS EJERCICIOS TERMINADOS AL 31 DE DICIEMBRE DEL 2019, CON INFORME ESPECIAL DEL PROYECTO UNIVERSALIZACI&Oacute;N DEL ALCANTARILLADO SANITARIO Y TRATAMIENTO DE AGUAS RESIDUALES DEL SISTEMA SUR DE LA CIUDAD DE GUAYAQUIL PLANTA DE TRATAMIENTO DE AGUAS RESIDUALES LAS ESCLUSAS Y LOS MERINOS Y SUS COMPONENTES COMPLEMENTARIOS, EJECUTADO POR EMAPAG EP, FINANCIADO CON RECURSOS PROVENIENTES DE: CONVENIO DE PR&Eacute;STAMO BIRF 8505-EC Y BIRF 8888-EC BANCO INTERNACIONAL DE RECONSTRUCCI&Oacute;N Y FOMENTO, CONTRATO DE FINANCIACI&Oacute;N FI NO. 84689 BANCO EUROPEO DE INVERSIONES, POR EL A&Ntilde;O TERMINADO EL 31 DE DICIEMBRE DEL 2019.</p><p><br />La Empresa Municipal de Agua Potable y Alcantarillado de Guayaquil, EP EMAPAG EP invita a las firmas consultoras elegibles a expresar su inter&eacute;s en prestar los servicios solicitados. Los consultores interesados deber&aacute;n proporcionar informaci&oacute;n que indique que est&aacute;n cualificados para suministrar los servicios. Los criterios para la selecci&oacute;n de la lista corta son los siguientes:</p><p><br />&nbsp; &nbsp; &nbsp;&bull;&nbsp;Experiencia espec&iacute;fica:<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&nbsp;Experiencia en auditor&iacute;as financieras a empresas estatales.<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&nbsp;Experiencia en auditor&iacute;as con procedimientos de organismos internacionales.</p><p><br />Adem&aacute;s, se considerar&aacute;n solamente a las firmas elegibles para el Banco Mundial en el Ecuador, por lo que no se aceptar&aacute; a otra firma que no sea elegible.</p><p>&nbsp;</p><p>Adicionalmente cada firma consultora deber&aacute; presentar la siguiente documentaci&oacute;n:</p><p><br />&nbsp; &nbsp; &nbsp;&bull;&nbsp;Estatutos de la Sociedad o Documentos de Constituci&oacute;n y documentos de registro de la entidad legal indicada anteriormente (incluyendo sus &uacute;ltimas modificaciones).<br />&nbsp; &nbsp; &nbsp;&bull;&nbsp;Si se trata de una entidad gubernamental, documentaci&oacute;n que acredite su autonom&iacute;a jur&iacute;dica y financiera y el cumplimiento con las leyes comerciales.<br />&nbsp; &nbsp; &nbsp;&bull;&nbsp;Poder General o Espec&iacute;fico vigente otorgado a la persona que firmar&aacute; la solicitud de expresiones de inter&eacute;s.</p><p><br />Los consultores invitados deben prestar atenci&oacute;n a la pol&iacute;tica de conflicto de inter&eacute;s, p&aacute;rrafo 1.9 de las Normas del Banco Mundial titulado: Selecci&oacute;n y Contrataci&oacute;n de Consultores por Prestatarios del BIRF, Cr&eacute;ditos de la AIF y Donaciones por Prestatarios del Banco Mundial, de fecha enero de 2011, revisada a julio del 2014.</p><p><br />Para efectos de la decisi&oacute;n de manifestar inter&eacute;s, y de un eventual contrato, el consultor interesado deber&aacute; tener en cuenta las causales de conflicto de inter&eacute;s y elegibilidad establecidas en las normas se&ntilde;aladas en el p&aacute;rrafo anterior, las cuales podr&aacute;n ser consultadas en la p&aacute;gina Web: http://www.bancomundial.org</p><p><br />Los consultores se podr&aacute;n asociar con otras firmas en forma de asociaci&oacute;n en participaci&oacute;n (APCA) o subcontratistas con el fin de mejorar sus calificaciones.</p><p><br />Los Consultores ser&aacute;n seleccionados mediante el m&eacute;todo de Selecci&oacute;n Basada en el Menor Costo (SBMC), descrito en las Normas de Consultor&iacute;a.</p><p><br />Los consultores interesados pueden obtener m&aacute;s informaci&oacute;n en la direcci&oacute;n indicada al final de este llamado, en la p&aacute;gina web www.emapag-ep.gob.ec</p><p><br />Las expresiones de inter&eacute;s deber&aacute;n ser recibidas por escrito en la direcci&oacute;n indicada a continuaci&oacute;n (personalmente, por correo, o por correo electr&oacute;nico), a m&aacute;s tardar el 08 de junio de 2020, hasta las 15h00.</p><p><br />EMPRESA MUNICIPAL DE AGUA POTABLE Y ALCANTARILLADO DE GUAYAQUIL, EP EMAPAG EP<br />Atenci&oacute;n: Economista Jackson Herrera Cajas, Gerente General EMAPAG EP<br />Direcci&oacute;n postal: 09150. 090512<br />Domicilio: Avenida Francisco de Orellana s/n y Avenida Miguel H. Alc&iacute;var, Centro Empresarial Las C&aacute;maras, Torre de Oficinas, Mezzanine, Guayaquil &ndash; Ecuador<br />Tel&eacute;fono: (593) 04 2681315<br />Fax: (593) 04 2682225<br />Correo electr&oacute;nico: uepmultilaterales@emapag-ep.gob.ec</p>",
-      "contact_name": "Mario Garcia",
-      "contact_email": "mgarcia@emapag-ep.gob.ec",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00089695"
-    },
     {
       "notice_id": "OP00476538",
       "project_id": "P516621",
