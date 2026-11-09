@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-11-09T18:35:49Z",
+  "fechaExtraccion": "2026-11-09T18:56:05Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31705,
       "records_downloaded": 31705,
       "pages": 318,
-      "duplicate_records": 16,
+      "duplicate_records": 10,
       "recovery_passes": 1,
       "coverage_complete": true
     },
