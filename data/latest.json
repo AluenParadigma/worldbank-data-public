@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-11-10T16:19:04Z",
+  "fechaExtraccion": "2026-11-10T16:32:28Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31731,
       "records_downloaded": 31731,
       "pages": 318,
-      "duplicate_records": 21,
+      "duplicate_records": 20,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33653,
-  "expiredRecords": 32388,
+  "expiredRecords": 32389,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 188,
+  "currentConsultingEnEs": 187,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00480183",
-      "project_id": "P500587",
-      "reference_no": "LS-MOET-549912-CS-INDV",
-      "title": "Short-Term consultancy for Procurement Records Keeper 2",
-      "country": "Lesotho",
-      "project_name": "Lesotho Education Improvement Project",
-      "institution": "Ministry of Education",
-      "publication_date": "09-Nov-2026",
-      "deadline": "2026-11-10T16:30:00Z",
-      "deadline_date_raw": "2026-11-10T00:00:00Z",
-      "deadline_time_raw": "16:30",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>Expression of Interest for short term Consultancy of Procurement Record Keepers (2)</strong></p>",
-      "contact_name": "Leutsoa Matsoso",
-      "contact_email": "madalamatsoso@gmail.com",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00480183"
-    },
     {
       "notice_id": "OP00477948",
       "project_id": "P180931",
