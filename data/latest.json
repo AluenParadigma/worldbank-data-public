@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-11-11T15:58:59Z",
+  "fechaExtraccion": "2026-11-11T16:21:17Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -17,7 +17,7 @@
       "api_total": 31755,
       "records_downloaded": 31755,
       "pages": 318,
-      "duplicate_records": 16,
+      "duplicate_records": 14,
       "recovery_passes": 1,
       "coverage_complete": true
     },
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33677,
-  "expiredRecords": 32403,
+  "expiredRecords": 32404,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 197,
+  "currentConsultingEnEs": 196,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00476478",
-      "project_id": "P501017",
-      "reference_no": "ET-MOE-577086-CS-INDV",
-      "title": "Selection and Employment of the #1 Special Contract Management Advisor for ETOL Program, by MoE.",
-      "country": "Ethiopia",
-      "project_name": "Ethiopia Education Transformation Operation for Learning",
-      "institution": "Ministry of Education",
-      "publication_date": "22-Oct-2026",
-      "deadline": "2026-11-11T16:00:00Z",
-      "deadline_date_raw": "2026-11-11T00:00:00Z",
-      "deadline_time_raw": "16:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "INDV",
-      "procurement_method_name": "Individual Consultant Selection",
-      "notice_text": "<p><strong>REQUEST FOR EXPRESSIONS OF INTEREST</strong></p><p><strong>(INDIVIDUAL CONSULTING SERVICES)</strong></p><p><strong>COUNTRY:</strong> Federal Democratic Republic of Ethiopia</p><p><strong>NAME OF PROJECT</strong>: Ethiopia Education Transformation Operation for Learning (ETOL)</p><p><strong>Grant No. </strong>TF-C8111</p><p><strong>Project ID No. P501017 </strong></p><p><strong>Assignment Title:</strong> selection and employment of #1 Special Contract Management Advisor as individual consultant for the Ethiopia Education Transformation Operation for Learning (ETOL) program.</p><p><strong>Reference No.: ET-MOE-577086-CS-INDV</strong></p><p>The Federal Democratic Republic of Ethiopia<strong>&nbsp;</strong>has received<em>&nbsp;</em>financing from the World Bank and other Development Partners toward the cost of ETOL program and intends to apply part of the proceeds for consulting services.</p><ol><li><strong>Objective of the assignment </strong></li></ol><p>The objective of the assignment is to provide implementation support the Ministry of Education in the effective and efficient administration, monitoring, and management of contracts under the Education Transformation Operation for Learning (ETOL) Program, ensuring compliance with World Bank procurement regulations, timely delivery of goods, works, and consulting services, proper contract implementation, timely payments, effective resolution of contractual issues, and strengthened contract management capacity of implementing institutions.</p><ol><li><strong>Scope of Work and Specific Duties of the Advisor</strong></li></ol><p>The successful advisor is expected to advise and support the Ministry of Education in strengthening the implementation, monitoring, and management of contracts under the ETOL Program. The assignment aims to enhance the Ministry&rsquo;s capacity to ensure efficient procurement processes, timely delivery of goods, works, and services, proper contract administration, and compliance with relevant government rules and World Bank Procurement Regulations. The advisor shall work closely with the Ministry&rsquo;s Strategic Affaires Executive, procurement Executive and staff and NPCO, suppliers, contractors, consultants, ETOL implementing agencies, and World Bank procurement officers to address implementation challenges, facilitate timely payments and contract settlements, resolve contractual disputes, maintain accurate records and update STEP for IPF component procurement activities, prepare regular progress reports, and strengthen the capacity of implementing institutions in contract management.</p><ol><li><strong>Qualifications and Experience Required </strong></li></ol><p><strong>Educational Qualification:</strong> BA, MA, PhD in Procurement Management, Logistics and Supplies Management, Business Development, Management, MBA, Marketing Management, Contract Management, Engineering or in a related field.</p><p><strong>General Experience:</strong> Minimum of 12/10/8 years of General Experience for BA/BSc, MA/MSc, and PhD holders, respectively.</p><p>&nbsp;</p><p><strong>Adequacy for the assignment: </strong></p><ul><li>8 years of work experience in contract administration of goods, works and consulting services in government and donor funded projects. To work at department level is a plus or advantageous.</li><li>Having minimum of five years&rsquo; experience in contract management.</li><li>Relevant experience in the contract management of works, goods and selection of consultancy services required.</li><li>Proven familiarity with World Bank procurement procedures including the World Bank standard procurement documents for procurement of works, goods and selection of consultants</li><li>Relevant experience in government procurement of high- value works, goods, and services</li><li>Good understanding of sector development programs and proficiency in the World Bank&rsquo;s Systematic Tracking of Exchanges in Procurement (STEP) system.</li><li>Strong staff development experience with demonstrable success in building of capacity and facilitating change using participatory methodologies.</li><li>Willingness to travel and work to implementing agencies throughout Ethiopia and other relevant institutions.</li></ul><ol><li><strong>Duration of the Contract</strong></li></ol><p>The duration of the contract will be through the end of the program implementation but will only be renewed after each year based on successful performance depending on the availability of tasks to be accomplished and funds.</p><ol><li><strong>Monthly Gross Salary: </strong>Negotiable</li></ol><p>The Ministry of Education now invites eligible individuals Consultants to indicate their interest in providing the Services. Interested Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services.</p><ul><li>The attention of interested Consultants is drawn to Section III, paragraphs, 3.14, 3.16, and 3.17 of the World Bank&rsquo;s &ldquo;Procurement Regulations for IPF Borrowers&rdquo; &amp;7th edition September 2025. (&ldquo;Procurement Regulations&rdquo;), setting forth the World Bank&rsquo;s policy on conflict of interest.</li><li>The Selection process of the individual Consultants is as per <em><u>World Bank&rsquo;s Procurement</u></em><em> <u>Regulations for IPF Borrower: Procurement in Investment Project Financing Goods,</u> <u>Works, Non-Consulting and Consulting Services (5th Edition September 2023)</u></em>.</li><li>The detailed Terms of Reference (TOR) for the assignment can be obtained at the address given below<em>.</em></li><li>Further information can be obtained at the address below during office hours from Monday to Friday, 9:00 AM to 11:30 AM in the morning and from 2:00PM to 5:00PM in the afternoon.</li><li>Expressions of interest with updated CV, educational credentials and testimony must be delivered in <strong>one (1) hard copies</strong> or electronically to the address below (in person, or by mail in PDF format)<strong> </strong>on or before Nov. 11, 2026, at 4:00PM.</li></ul><p><strong>The address (es) referred to above is: </strong></p><p><strong>Ministry of Education</strong></p><p>Attention; Ato Adisu Tesfaye Degefa</p><p>Procurement Executive office</p><p>Room No.&nbsp;<em> </em>1st<em>&nbsp;floor</em>&nbsp;Old Building</p><p>Tel:&nbsp; +251-111-400315 [insert telephone number, including country and city codes]</p><p><strong>e-mail:&nbsp; adis9805moe@gmail.com </strong></p><p>Addis Ababa, Ethiopia</p>",
-      "contact_name": "Addisu Tesfaye",
-      "contact_email": "adisu.tesfaye@ethernet.edu.et",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00476478"
-    },
     {
       "notice_id": "OP00476684",
       "project_id": "P502591",
