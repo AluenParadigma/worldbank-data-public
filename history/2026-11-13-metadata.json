@@ -1,0 +1,46 @@
+{
+  "source": "World Bank Procurement Notices",
+  "api": "https://search.worldbank.org/api/v2/procnotices",
+  "extracted_at": "2026-11-13T14:11:30Z",
+  "language_controls": [
+    {
+      "language_filter": "English",
+      "api_total": 31780,
+      "records_downloaded": 31780,
+      "pages": 318,
+      "duplicate_records": 14,
+      "recovery_passes": 1,
+      "coverage_complete": true
+    },
+    {
+      "language_filter": "Spanish",
+      "api_total": 0,
+      "records_downloaded": 0,
+      "pages": 1,
+      "duplicate_records": 0,
+      "recovery_passes": 0,
+      "coverage_complete": true
+    },
+    {
+      "language_filter": "Spanish; Castilian",
+      "api_total": 1927,
+      "records_downloaded": 1927,
+      "pages": 20,
+      "duplicate_records": 0,
+      "recovery_passes": 0,
+      "coverage_complete": true
+    }
+  ],
+  "historical_filtered_unique": 33707,
+  "expired_records": 32422,
+  "records_without_deadline": 1077,
+  "inactive_status_records": 0,
+  "current_records": 208,
+  "current_consulting_en_es": 208,
+  "json_records": 208,
+  "csv_records": 208,
+  "coverage_complete": true,
+  "validation_status": "OK",
+  "sha256_json": "6c202f43cdb70e50b6cb96eea6e66a067b426bc86e4f852199344874f0e0174e",
+  "sha256_csv": "2ada935f6299366eb11d4fc671c45b70146fe552b7b5f3695caf580b48beefc4"
+}
