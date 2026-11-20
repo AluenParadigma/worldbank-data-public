@@ -1,7 +1,7 @@
 {
   "source": "World Bank Procurement Notices",
   "api": "https://search.worldbank.org/api/v2/procnotices",
-  "fechaExtraccion": "2026-11-20T17:14:36Z",
+  "fechaExtraccion": "2026-11-20T18:48:58Z",
   "filters": {
     "procurement_group_exact": "CS",
     "notice_type_exact": "Request for Expression of Interest",
@@ -41,36 +41,13 @@
     }
   ],
   "historicalFilteredUnique": 33791,
-  "expiredRecords": 32548,
+  "expiredRecords": 32549,
   "recordsWithoutDeadline": 1077,
   "inactiveStatusRecords": 0,
-  "currentConsultingEnEs": 166,
+  "currentConsultingEnEs": 165,
   "coverageComplete": true,
   "validationStatus": "OK",
   "data": [
-    {
-      "notice_id": "OP00479570",
-      "project_id": "P179108",
-      "reference_no": "UZ-DIP-578128-CS-CQS",
-      "title": "Consulting Services for the Training and Professional Development of E-commerce Managers",
-      "country": "Uzbekistan",
-      "project_name": "Uzbekistan Digital Inclusion Project",
-      "institution": "PIU for Uzbekistan Digital Inclusion Project",
-      "publication_date": "05-Nov-2026",
-      "deadline": "2026-11-20T18:00:00Z",
-      "deadline_date_raw": "2026-11-20T00:00:00Z",
-      "deadline_time_raw": "18:00",
-      "language": "English",
-      "notice_type": "Request for Expression of Interest",
-      "notice_status": "Published",
-      "procurement_group": "CS",
-      "procurement_method_code": "CQS",
-      "procurement_method_name": "Consultant Qualification  Selection",
-      "notice_text": "<p><strong>REQUEST FOR </strong><strong>EXPRESSION OF </strong><strong>INTEREST</strong></p><p><strong>THE </strong><strong>REPUBLIC OF UZBEKISTAN</strong></p><p><strong>Uzbekistan Digital Inclusion Project </strong></p><p><strong>Credit</strong><strong> </strong><strong>No</strong><strong>: 7425-</strong><strong>UZ</strong></p><p><strong>Assignment title: Consulting services for the training and professional development of online marketplace managers</strong></p><p><strong>Reference No.: UZ-DIP-578128-CS-CQS</strong></p><p>The Republic of Uzbekistan (hereinafter referred to as the &ldquo;Borrower&rdquo;) has applied for financing from the International Development Association (IDA) (hereinafter referred to as the &ldquo;Bank&rdquo;) in the form of a &ldquo;credit&rdquo; (hereinafter referred to as the &ldquo;credit&rdquo;) to cover the costs of the Uzbekistan Digital Inclusion Project. &ldquo;Administration of Technology Park of Software and IT&rdquo; LLC, as the Implementing Agency, intends to use part of the funds to hire a consulting firm for the training and professional development of online marketplace managers.</p><p>The objective of this consultancy is to equip young women with practical skills to enhance their employability in the online marketplace management sector. The Consultant will design and deliver a practical training program for online marketplace managers in Uzbek, through live online sessions, pre-recorded lessons and in-person sessions when needed, and will support participants in pursuing employment upon completion of the training.</p><p>The initiative will target at least 500 women aged 18 to 30 from six regions of Uzbekistan: Tashkent, Syrdarya, Jizzakh, Navoi, Kashkadarya and the Republic of Karakalpakstan.</p><p>The consulting services (&ldquo;the Services&rdquo;) include, but are not limited to:</p><ul><li>Development of a practical training curriculum of at least 24 hours and related learning materials;</li><li>Participant recruitment and cohort formation;</li><li>Delivery of the training program for at least 500 participants;</li><li>Development of pre-recorded video lessons in Uzbek for further use by the Client;</li><li>Employment support and career guidance for training graduates.</li></ul><p>The consulting services are expected to last approximately 7 months.</p><p><strong>To obtain the Terms of Reference for the assignment, please send your request to the following<br />e-mail address: </strong><strong>udip@it-park.uz</strong><strong>.</strong></p><p>&ldquo;Administration of Technology Park of Software and IT&rdquo; LLC now invites eligible consulting firms (&ldquo;Consultants&rdquo;) to express their interest in providing the Services. Consultants should provide information demonstrating that they have the required qualifications and relevant experience to perform the Services.</p><p>The attention of interested consultants is drawn to Section III, paragraphs 3.14, 3.16, and 3.17 of the World Bank&rsquo;s Procurement Regulations for IPF Borrowers, Fifth Edition, September 2023 (the &ldquo;Procurement Regulations&rdquo;), which sets forth the World Bank&#39;s conflict of interest policy.</p><p>The best qualified firm to carry out the Services will be selected in accordance with the Consultant&rsquo;s Qualifications-Based Selection (CQS) method set out in the Procurement Regulations and based on the following criteria:</p><p><strong>1) General Experience </strong></p><p>a) The firm shall be a legally registered entity in its country of registration. <em>(Evidence: registration certificate).</em></p><p>b) A minimum of 3 years of operational experience in the design and delivery of training programs.</p><p><strong>2) Specific Experience</strong></p><p>a) At least two (2) training assignments completed within the last five (5) years, of which at least one (1) involved training in online marketplace management, digital marketing or online sales.</p><p>b) Experience in delivering online training programs.</p><p><em>For each assignment, the firm shall indicate the client, dates, number of participants and a brief description of services, supported by reference letters or contract copies.</em></p><p><strong>3</strong><strong>) Financial Capacity </strong></p><p>a) Minimum average annual turnover of USD 90,000 (or equivalent in local currency) during the last three fiscal years (2023&ndash;2025), supported by financial statements.</p><p><strong>Joint ventures: </strong>In case of a joint venture, the lead member shall meet the requirements under 2) Specific Experience on its own. Other requirements may be met by the members of the joint venture collectively, except that each member shall be a legally registered entity in its country of registration. The requirement for a minimum of three (3) years of operational experience shall be met by at least one member.</p><p><em>Consultants may associate with other firms to enhance their qualifications, but should indicate clearly whether the association is in the form of a joint venture and/or a sub-consultancy.</em></p><p><em>Key Experts will not be evaluated at the shortlisting stage. The experience of sub-consultants will not be taken into account.</em></p><p>Further information can be obtained at the address below during office hours: 9:00 a.m. to 6:00 p.m. Tashkent time.</p><p>Expressions of interest must be delivered in writing (in person, by post, or by email) to the address below no later than November 20, 2026, at 6:00 p.m. Tashkent time.</p><p>&nbsp;</p><p>&ldquo;Administration of Technology Park of Software and IT&rdquo; LLC</p><p>Attention of: Mr. Azamat Karamatov, General Director</p><p>Uzbekistan Digital Inclusion project</p><p>5th floor, 7/2, Muminov str.</p><p>100164, Tashkent, Uzbekistan,</p><p>udip@it-park.uz, +99871 209 11 99 (1037), +99895 165 55 95</p>",
-      "contact_name": "Akhmedov  Sardorjon",
-      "contact_email": "udip@it-park.uz",
-      "source_url": "https://projects.worldbank.org/en/projects-operations/procurement-detail/OP00479570"
-    },
     {
       "notice_id": "OP00477970",
       "project_id": "P174593",
